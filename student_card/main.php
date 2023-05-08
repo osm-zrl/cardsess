@@ -1,3 +1,4 @@
+<!-- say hi to iSMAILAIB -->
 <?php
 // Include the database connection file
 require_once "connection.php";
