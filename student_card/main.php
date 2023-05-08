@@ -1,4 +1,4 @@
-<!-- say hi to iSMAILAIB -->
+<!-- say hi to not iSMAILAIB -->
 <?php
 // Include the database connection file
 require_once "connection.php";
