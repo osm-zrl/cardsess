@@ -3,7 +3,7 @@
 <head>
     <?php require('head.php');
     require('dbconfig.php');?>
-    <title>Dashboard</title>
+    <title>Scan card</title>
 </head>
 <body>
     <?php require('aside.php');?>
@@ -11,8 +11,8 @@
     <main>
         <div class="top-main">
             <div class="title">
-                <h2>Welcome Back, Admin !</h2>
-                <h5>Here’s your students overview</h5>
+                <h2>Your title here</h2>
+                <h5>Your description here</h5>
             </div>
             <div class="cards">
                 <div class="card">
@@ -38,30 +38,33 @@
                 </div>
             </div>
         </div>
-        <!-- charts -->
-        <div class="statistics">
-			<div class="block">
-				<h4>Students Statistics</h4>
-				<canvas id="Chart1"></canvas>
-			</div>
+        <div class="link-div">
+            <a href="#" onclick="toggleScan()" id="addstudentbtn">Scan Card</a>
+        </div>
+        <!-- table -->
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Card UID</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
 
-		    <div class="block" id="chart2">
-			    <h4>Cards Statistics</h4>
-			    <canvas id="Chart2"></canvas>
-		    </div>
-	    </div>
-        <div class="statistics_2">
-		    <div class="block">
-			    <h4>General Statistics</h4>
-			    <div class="center">
-				    <canvas id="Chart3"></canvas>
-			    </div>
-		    </div>
-		    <div class="block">
-			    <h4>Entry/Exit</h4>
-		    </div>
-	    </div>
+            </tbody>
+        </table>
+        <div id="addstudent" class="form hidden">
+            <div class="blocktitle">
+                <h3> Scan Card</h3>
+                <i class="fa-solid fa-xmark" onclick="toggleAddStudent()"></i>
+            </div>
+
+            
+        </div>
     </main>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/chart.js"></script>
     <script src="js/script.js"></script>

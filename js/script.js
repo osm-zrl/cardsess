@@ -6,3 +6,12 @@ function toggleAddStudent() {
     addStudent.classList.add('hidden');
     }
     }
+
+function toggleScan() {
+    let addStudent = document.getElementById('addstudent');
+    if (addStudent.classList.contains('hidden')) {
+    addStudent.classList.remove('hidden');
+    } else {
+    addStudent.classList.add('hidden');
+    }
+    }
