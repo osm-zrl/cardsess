@@ -137,7 +137,7 @@
 <nav class="main-menu">
             <ul>
                 <li>
-                    <a href="">
+                    <a href="dashboard.php">
                         <i class="fa fa-home fa-2x"></i>
                         <span class="nav-text">
                           Dashboard
