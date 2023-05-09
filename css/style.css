@@ -27,8 +27,7 @@ body {
     /* split the page , 20% for the sidebar and 80% for the main grid :) */
     display: grid;
     height: 100vh;
-    grid-template-columns: 20% auto;
-    grid-template-rows: 100%;
+    grid-template-columns: 60px auto;
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
@@ -76,12 +75,12 @@ main {
     flex-direction: column;
 }
 
-h2 {
+main h2 {
     font-size: 28px;
     color: var(--white-color);
     margin: 0;
 }
-h5 {
+main h5 {
     color: var(--second-color);
     margin-bottom: 5px;
 }
@@ -107,7 +106,7 @@ h5 {
     padding: 1rem;
     width: 80%;
 }
-i {
+main i {
     font-size: 2rem;
     color: var(--second-color);
 }
@@ -117,7 +116,7 @@ i {
     gap: 5px;
     color: var(--second-color);
 }
-span {
+main span {
     font-size: 25px;
     font-weight: bolder;
 }
@@ -136,7 +135,7 @@ span {
     justify-content: flex-end;
 }
 
-a {
+main a {
     width: fit-content;
     display: flex;
     align-items: end;
@@ -153,7 +152,7 @@ a {
     transition: var(--transition);
 }
 
-a:hover{
+main a:hover{
     color: #ffffff;
     background: #99A5CB;
     border: 1px solid #99A5CB;
@@ -162,7 +161,7 @@ a:hover{
 
 /* table style start*/
 
-table {
+main table {
     border: 1px solid var(--text-grey);
     border-collapse: collapse;
     margin: 0;
@@ -172,25 +171,25 @@ table {
     border-radius: 12px;
 }
   
-table caption {
+main table caption {
     font-size: 1.5em;
     margin: .5em 0 .75em;
 }
   
-table tr {
+main table tr {
     background-color: var(--white-color);
     border: 1px solid var(--grey-color);
     padding: .35em;
 }
   
-table th,
-table td {
+main table th,
+main table td {
     padding: .625em;
     text-align: center;
     gap: 8px;
 }
   
-table th {
+main table th {
     font-size: .85em;
     letter-spacing: .1em;
     text-transform: uppercase;
@@ -212,11 +211,11 @@ table th {
     width: 100% !important;
 }
 
-h4 {
+main h4 {
     font-size: 1.3rem;
     margin: 10px 0 0 10px;
 }
-canvas {
+main canvas {
     margin: 10px !important;
 }
 #Chart3{
@@ -253,7 +252,7 @@ canvas {
   flex-direction: column;
   gap: 0.5rem;
 }
-select,input {
+main select,input {
   padding: 10px;
   border: 2px solid #ccc;
   border-radius: 5px;
@@ -262,7 +261,7 @@ select,input {
   outline: none;
 }
 
-input:focus {
+main input:focus {
   border-color: #414D75;
   box-shadow: 0 0 0 0.2rem #99A5CB;
 }
@@ -280,7 +279,7 @@ input:focus {
 #birthday , #gender {
   width: 46.8%;
 }
-button {
+main button {
   color: #ffffff;
   border: none;
   width: fit-content;
