@@ -111,8 +111,7 @@
                     <button type="submit">Add Student</button>
                 </div>
             </form>
-
-
+        </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/chart.js"></script>
