@@ -6,10 +6,7 @@
     <title>main</title>
 </head>
 <body>
-    <!-- aside here -->
-    <aside>
-
-    </aside>
+    <?php require('aside.php');?>
     <!-- top main title + statics cards  -->
     <main>
         <div class="top-main">
