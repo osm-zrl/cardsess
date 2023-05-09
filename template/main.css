@@ -302,3 +302,44 @@ button:hover {
 td a {
   justify-content: center;
 }
+
+@media only screen and (max-width: 1024px) {
+  .top-dashboard {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--gap-grid);
+  }
+  .statistics {
+      grid-template-columns: 100%;
+  }
+  .chart2 {
+      margin-right: 0;
+  }
+  .container {
+      grid-template-columns: 60% 38%;
+  }
+  .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+  }
+}
+
+
+@media only screen and (max-width: 768px) {
+  .cards {
+      grid-template-columns: 1fr;
+  }
+  .card {
+      width: 90%;
+  }
+  .text {
+      align-items: center;
+  }
+  .container {
+      display: grid;
+      grid-template-columns: 100%;
+      gap: var(--gap-grid);
+      padding-top: 2rem;
+  }
+}
