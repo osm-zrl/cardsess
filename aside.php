@@ -1,4 +1,4 @@
-<aside>
+
     
 <style>
         .fa-2x {
@@ -129,10 +129,8 @@
 
     </style>
 
-</head>
 
-<body>
-
+<aside>
 
 <nav class="main-menu">
             <ul>
