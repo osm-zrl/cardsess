@@ -187,7 +187,7 @@
             <ul class="logout">
                 <li>
                    <a href="#">
-                         <i class="fa fa-power-off fa-2x"></i>
+                        <i class="fa fa-power-off fa-2x"></i>
                         <span class="nav-text">
                             Logout
                         </span>
@@ -195,6 +195,4 @@
                 </li>  
             </ul>
         </nav>
-
-    
 </aside>
