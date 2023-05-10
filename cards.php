@@ -3,7 +3,7 @@
 <head>
     <?php require('head.php');
     require('dbconfig.php');?>
-    <title>Scan card</title>
+    <title>manage cards</title>
 </head>
 <body>
     <?php require('aside.php');?>
