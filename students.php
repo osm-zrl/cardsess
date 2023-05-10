@@ -12,7 +12,7 @@
         <div class="top-main">
             <div class="title">
                 <h2>Students Place</h2>
-                <h5>Here’s you can see all the students</h5>
+                <h5>Here you can see all the students</h5>
             </div>
             <div class="cards">
                 <div class="card">

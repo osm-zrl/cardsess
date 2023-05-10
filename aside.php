@@ -155,10 +155,10 @@
                     
                 </li>
                 <li class="has-subnav">
-                    <a href="scan.php">
+                    <a href="cards.php">
                        <i class="fa fa-address-card fa-2x"></i>
                         <span class="nav-text">
-                            Scan
+                            Cards
                         </span>
                     </a>
                     
