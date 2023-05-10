@@ -101,7 +101,7 @@ main h5 {
     border-radius: var(--border-radius);
     justify-content: center;
     gap: var(--gap-grid);
-    cursor: pointer;
+    /* cursor: pointer;*/
     padding: 1rem;
     width: 95%;
     flex-direction: row;

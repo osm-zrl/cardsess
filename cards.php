@@ -11,8 +11,8 @@
     <main>
         <div class="top-main">
             <div class="title">
-                <h2>Your title here</h2>
-                <h5>Your description here</h5>
+                <h2>MANAGE CARDS</h2>
+                <h5>Add and desactivate cards from here</h5>
             </div>
             <div class="cards">
                 <div class="card">
