@@ -57,6 +57,7 @@
             text-decoration:none;
             -webkit-transition:all .1s linear;
             transition:all .1s linear;
+            font-weight: bold;
         
         }
 
