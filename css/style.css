@@ -269,7 +269,7 @@ main canvas {
   flex-direction: column;
   gap: 0.5rem;
 }
-main select,input {
+main select,main input {
   padding: 10px;
   border: 2px solid #ccc;
   border-radius: 5px;
