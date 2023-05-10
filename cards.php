@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="link-div">
-            <a href="#" onclick="toggleScan()" id="addstudentbtn">Scan Card</a>
+            <a href="#" onclick="toggleScan()" id="addstudentbtn">Add Card</a>
         </div>
         <!-- table -->
         <table>
@@ -57,11 +57,9 @@
         </table>
         <div id="addstudent" class="form hidden">
             <div class="blocktitle">
-                <h3> Scan Card</h3>
+                <h3> add card</h3>
                 <i class="fa-solid fa-xmark" onclick="toggleAddStudent()"></i>
             </div>
-
-            
         </div>
     </main>
 
