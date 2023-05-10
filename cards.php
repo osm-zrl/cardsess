@@ -16,13 +16,6 @@
             </div>
             <div class="cards">
                 <div class="card">
-                    <i class="fa-solid fa-users"></i>
-                    <div class="card-text">
-                        <span>320</span>
-                        <p>Students</p>
-                    </div>
-                </div>
-                <div class="card">
                     <i class="fa-solid fa-id-card"></i>
                     <div class="card-text">
                         <span>280</span>
@@ -30,10 +23,17 @@
                     </div>
                 </div>
                 <div class="card">
-                    <i class="fa-solid fa-chalkboard"></i>
+                    <i class="fa-solid fa-check"></i>
                     <div class="card-text">
-                        <span>15</span>
-                        <p>Classes</p>
+                        <span>228</span>
+                        <p>Active Cards</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-xmark"></i>
+                    <div class="card-text">
+                        <span>52</span>
+                        <p>Blocked Cards</p>
                     </div>
                 </div>
             </div>
