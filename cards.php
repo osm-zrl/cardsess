@@ -9,6 +9,7 @@
     <?php require('aside.php');?>
     <!-- top main title + statics cards  -->
     <main>
+        <div id="black_layer" style="right:-100vw;"></div>
         <div class="top-main">
             <div class="title">
                 <h2>MANAGE CARDS</h2>
@@ -39,7 +40,7 @@
             </div>
         </div>
         <div class="link-div">
-            <a href="#" onclick="toggleScan()" id="addstudentbtn">Add Card</a>
+            <a href="#" onclick="togglecard()" id="addstudentbtn">Add Card</a>
         </div>
         <!-- table -->
         <table>
@@ -55,10 +56,23 @@
 
             </tbody>
         </table>
-        <div id="addstudent" class="form hidden">
+        <div id="addstudent" class="form hidden" style="gap:0.5rem!important; ">
             <div class="blocktitle">
                 <h3> add card</h3>
-                <i class="fa-solid fa-xmark" onclick="toggleAddStudent()"></i>
+                <i class="fa-solid fa-xmark" onclick="togglecard()"></i>
+            </div>
+            
+            <label for="card_id">card id:</label>
+            <div>
+                <input style="border-radius:5px 0 0 5px;" disabled type="text" >
+                <button style="padding:0.7rem; border-radius:0 12px 12px 0;" type="button">scan</button>
+            </div>
+            <label for="card_id">student id:</label>
+            <select>
+                <option selected hidden>select student</option>
+            </select>
+            
+                
             </div>
         </div>
     </main>

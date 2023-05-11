@@ -9,6 +9,7 @@
     <?php require('aside.php');?>
     <!-- top main title + statics cards  -->
     <main>
+        <div id="black_layer" style="right:-100vw;"></div>
         <div class="top-main">
             <div class="title">
                 <h2>Students Place</h2>
@@ -39,7 +40,7 @@
             </div>
         </div>
         <div class="link-div">
-            <a href="#" onclick="toggleAddStudent()" id="addstudentbtn">Add Student</a>
+            <a href="#" onclick="togglecard()" id="addstudentbtn">Add Student</a>
         </div>
         <!-- table -->
         <table>
@@ -62,7 +63,7 @@
         <div id="addstudent" class="form hidden">
             <div class="blocktitle">
                 <h3> Add Student</h3>
-                <i class="fa-solid fa-xmark" onclick="toggleAddStudent()"></i>
+                <i class="fa-solid fa-xmark" onclick="togglecard()"></i>
             </div>
 
             <form id="form" action="" method="post">
