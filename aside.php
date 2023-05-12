@@ -173,11 +173,11 @@
                 </li>
 
                 <li class="has-subnav">
-                    <a href="#">
-                       <i class="fa fa-clock-rotate-left fa-2x"></i>
+                    <a href="presence_log.php">
+                        <i class="fa fa-solid fa-table-list"></i>
                        
                         <span class="nav-text">
-                            History
+                            Presence Log
                         </span>
                     </a>
                    

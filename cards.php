@@ -107,6 +107,7 @@ $total_cards = $count_row['total_cards'];
                     }
                 ?>
             </select>
+            <button onclick="submit()" class="d-block mx-auto" type = "button">SUBMIT</button>
 
 
         </div>
