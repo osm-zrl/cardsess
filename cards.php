@@ -85,7 +85,7 @@
             <div>
                 <input style="border-radius:5px 0 0 5px;" disabled type="text">
                 <button style="padding:0.7rem; border-radius:0 12px 12px 0;" onclick="scanCard(this)"
-                    type="button"><i style="font-size:1.3rem; color:white;" class="fa-solid fa-spinner i-spinners"></i></button>
+                    type="button">scan</button>
             </div>
             <label for="card_id">student id:</label>
             <select>

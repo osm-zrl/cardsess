@@ -26,14 +26,14 @@
                 <div class="card">
                     <i class="fa-solid fa-address-book"></i>
                     <div class="card-text">
-                        <span>23</span>
+                        <span>--</span>
                         <p>absent</p>
                     </div>
                 </div>
                 <div class="card">
                     <i class="fa-solid fa-chalkboard-user"></i>
                     <div class="card-text">
-                        <span>94%</span>
+                        <span>--%</span>
                         <p>attendance rate</p>
                     </div>
                 </div>

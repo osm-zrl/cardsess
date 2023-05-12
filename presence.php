@@ -34,9 +34,9 @@
 
             <div class="title">
 
-                <h2>Your title here</h2>
+                <h2>LIVE ENTRY</h2>
 
-                <h5>Your description here</h5>
+                <h5>Real time tracking of card scans</h5>
 
                 </div>
 
@@ -135,14 +135,14 @@
                 success: function (data) {
                     for (let i = 0; i < data.length; i++) {
                         let row = `<tr>
-                        <td>` + data[i].cardUID + `</td>
-                        <td>` + data[i].etuCEF + `</td>
+                        <td>` + data[i].card_id + `</td>
+                        <td>` + data[i].student_id + `</td>
                         <td>` + data[i].nom_complete + `</td>
-                        <td>` + data[i].datetime + `</td>
+                        <td>` + data[i].scan_time + `</td>
                         </tr>`;
                         Tbody.innerHTML += row; // Add the new row to the top of the table
 
-                        lastID = data[0].logID
+                        lastID = data[0].scan_id
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -163,16 +163,17 @@
                         lastID: lastID,
                     },
                     success: function (data) {
+                        console.log(data)
                         $.each(data, function (index, row) {
-                            if (row.logID > lastID) {
+                            if (row.scan_id > lastID) {
                                 let ro = `<tr>
-                        <td>` + row.cardUID + `</td>
-                        <td>` + row.etuCEF + `</td>
+                        <td>` + row.card_id + `</td>
+                        <td>` + row.student_id + `</td>
                         <td>` + row.nom_complete + `</td>
-                        <td>` + row.datetime + `</td>
+                        <td>` + row.scan_time + `</td>
                         </tr>`;
                                 Tbody.innerHTML = ro + Tbody.innerHTML;
-                                lastID = row.logID;
+                                lastID = row.scan_id;
                             }
                         });
                     },
