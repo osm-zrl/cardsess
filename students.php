@@ -198,7 +198,7 @@ $(document).ready(function() {
     var genderFilter = $('#gender').val();
     var classFilter = $('#classe').val();
     $.ajax({
-      url: 'search_students.php',
+      url: 'php/search_students.php',
       type: 'POST',
       data: { searchValue: searchValue, genderFilter: genderFilter, classFilter: classFilter },
       success: function(response) {

@@ -1,5 +1,5 @@
 <?php
-require('dbconfig.php');
+require('../dbconfig.php');
 
 $searchValue = $_POST['searchValue'];
 $genderFilter = $_POST['genderFilter'];
