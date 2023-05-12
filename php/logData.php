@@ -1,11 +1,11 @@
 <?php
-require('dbconfig.php');
+require('../dbconfig.php');
 if ($conn->connect_errno) {
     die('echec de connecter au serveur!');
 }
 if (isset($_GET['lastID'])) {
     $lastID = $_GET['lastID'];
-    $sql = "SELECT log_history.logID,log_history.cardUID, carte.etuCEF, concat(etudiant.etuNom,' ',etudiant.etuPrenom) as nom_complete, log_history.datetime FROM log_history JOIN carte ON carte.cardUID = log_history.cardUID JOIN etudiant ON carte.etuCEF = etudiant.etuCEF WHERE logID > $lastID";
+    $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id WHERE scan_id > $lastID";
 
     $result = $conn->query($sql);
     $data = array();
@@ -15,7 +15,7 @@ if (isset($_GET['lastID'])) {
     unset($lastID);
 } else {
 
-    $sql = "SELECT log_history.logID,log_history.cardUID, carte.etuCEF, concat(etudiant.etuNom,' ',etudiant.etuPrenom) as nom_complete, log_history.datetime FROM log_history JOIN carte ON carte.cardUID = log_history.cardUID JOIN etudiant ON carte.etuCEF = etudiant.etuCEF ORDER BY log_history.datetime DESC;";
+    $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id ORDER BY log_history.scan_time DESC;";
     $result = $conn->query($sql);
     
     $data = array();

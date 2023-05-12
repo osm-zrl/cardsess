@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <?php require('head.php');
-    require('dbconfig.php');?>
+    require('dbconfig.php'); ?>
     <title>manage cards</title>
+    <style>
+        @keyframes spin{
+            from {
+                transform: rotate(0deg);
+            }
+
+            to{
+                transform: rotate(360deg);
+            }
+        }
+        .i-spinners {
+            animation-name: spin;
+            animation-duration:1s;
+            animation-iteration-count: infinite;
+            transition: 300ms;
+        }
+    </style>
 </head>
+
 <body>
-    <?php require('aside.php');?>
+    <?php require('aside.php'); ?>
     <!-- top main title + statics cards  -->
     <main>
         <div id="black_layer" style="right:-100vw;"></div>
@@ -61,24 +80,26 @@
                 <h3> add card</h3>
                 <i class="fa-solid fa-xmark" onclick="togglecard()"></i>
             </div>
-            
+
             <label for="card_id">card id:</label>
             <div>
-                <input style="border-radius:5px 0 0 5px;" disabled type="text" >
-                <button style="padding:0.7rem; border-radius:0 12px 12px 0;" type="button">scan</button>
+                <input style="border-radius:5px 0 0 5px;" disabled type="text">
+                <button style="padding:0.7rem; border-radius:0 12px 12px 0;" onclick="scanCard(this)"
+                    type="button"><i style="font-size:1.3rem; color:white;" class="fa-solid fa-spinner i-spinners"></i></button>
             </div>
             <label for="card_id">student id:</label>
             <select>
                 <option selected hidden>select student</option>
             </select>
-            
-                
-            </div>
+
+
+        </div>
         </div>
     </main>
 
-    
-    
+    <script src="js/cards_page.js"></script>
+
     <?php require('footer.php') ?>
 </body>
+
 </html>

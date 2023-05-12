@@ -163,7 +163,7 @@
                     
                 </li>
                 <li class="has-subnav">
-                    <a href="#">
+                    <a href="presence.php">
                        <i class="fa fa-door-closed fa-2x"></i>
                         <span class="nav-text">
                             Entry/Exit
