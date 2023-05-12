@@ -4,41 +4,22 @@
 
 <head>
 
-    
-    <?php require('head.php')?>
+    <?php require('head.php') ?>
     <title>Document</title>
-
-    
-    <link rel="stylesheet" href="presence.css">
 
 </head>
 
 <body>
-
-
-
-
-    <aside>
-
-        
-        <?php require('aside.php') ?>
-
-        
-    </aside>
-
-    
-
+    <?php require('aside.php') ?>
     <main>
-
         <div class="top-main">
-
             <div class="title">
 
                 <h2>LIVE ENTRY</h2>
 
                 <h5>Real time tracking of card scans</h5>
 
-                </div>
+            </div>
 
             <div class="cards">
 
@@ -52,9 +33,9 @@
 
                         <p>Students</p>
 
-                        </div>
-
                     </div>
+
+                </div>
 
                 <div class="card">
 
@@ -66,9 +47,9 @@
 
                         <p>Cards</p>
 
-                        </div>
-
                     </div>
+
+                </div>
 
                 <div class="card">
 
@@ -80,13 +61,13 @@
 
                         <p>Classes</p>
 
-                        </div>
-
                     </div>
 
                 </div>
 
             </div>
+
+        </div>
 
         <table>
 
@@ -94,30 +75,27 @@
 
                 <tr>
 
-                    <th class="col"> Card UID </th>
+                    <th class="col"> Card ID </th>
 
-                    <th class="col"> CEF </th>
+                    <th class="col"> student ID </th>
 
-                    <th class="col"> Nom Complet </th>
+                    <th class="col"> Full Name </th>
 
-                    <th class="col"> Date </th>
+                    <th class="col"> timestamp </th>
 
+                </tr>
 
-
-
-                    </tr>
-
-                </thead>
+            </thead>
 
             <tbody id="logTable">
 
-                
 
-                </tbody>
 
-            </table>
+            </tbody>
 
-        </main>
+        </table>
+
+    </main>
 
 
 
@@ -163,7 +141,6 @@
                         lastID: lastID,
                     },
                     success: function (data) {
-                        console.log(data)
                         $.each(data, function (index, row) {
                             if (row.scan_id > lastID) {
                                 let ro = `<tr>
