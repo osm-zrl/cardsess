@@ -81,15 +81,19 @@
                 <i class="fa-solid fa-xmark" onclick="togglecard()"></i>
             </div>
 
-            <label for="card_id">card id:</label>
-            <div>
-                <input style="border-radius:5px 0 0 5px;" disabled type="text">
-                <button style="padding:0.7rem; border-radius:0 12px 12px 0;" onclick="scanCard(this)"
-                    type="button">scan</button>
-            </div>
-            <label for="card_id">student id:</label>
+            <label for="">student id:</label>
             <select>
                 <option selected hidden>select student</option>
+                <?php 
+                    $sql = "SELECT student_id, concat(first_name,' ',last_name) as full_name FROM student";
+                    $res = $conn -> query($sql);
+                    while ($row = $res->fetch_assoc()){
+                    
+                ?>
+                <option value="<?php echo $row['student_id']?>"><?php echo $row['student_id'] ,'_',$row['full_name'] ?> </option>
+                <?php
+                    }
+                ?>
             </select>
 
 
