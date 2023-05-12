@@ -12,5 +12,3 @@ function togglecard() {
         black_layer.style.right = '-100vw'
     }
 }
-
-

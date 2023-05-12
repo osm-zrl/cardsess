@@ -1,0 +1,51 @@
+.search-box {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  .search-input {
+    padding-right: 40px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    height: 40px;
+    outline: none;
+    width: 250px;
+  }
+  
+  .search-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  
+  .search-button i {
+    font-size: 16px;
+    color: #aaa;
+  }
+  
+  .search-button:hover i {
+    color: #666;
+  }
+  .search-box  button:hover {
+      color: none;
+      background: none;
+  }
+  
+  .filter {
+      display: flex;
+      align-items: center;
+      width: 80%;
+      gap: 2rem;
+  }
+  select#gender ,select#classe {
+    width: 35%;
+}

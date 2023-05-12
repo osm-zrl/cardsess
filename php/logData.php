@@ -1,7 +1,7 @@
 <?php
 require('../dbconfig.php');
 if ($conn->connect_errno) {
-    die('failed to connect to database!');
+    die('echec de connecter au serveur!');
 }
 if (isset($_GET['lastID'])) {
     $lastID = $_GET['lastID'];

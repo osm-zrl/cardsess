@@ -1,3 +1,15 @@
+
+<?php
+require('dbconfig.php');
+
+// prepare the SQL statement to count the total number of classes
+$count_classes = "SELECT COUNT(DISTINCT card_id) as total_cards FROM cards";
+
+// execute the SQL statement to count the total number of classes and store the result
+$count_result = $conn->query($count_classes);
+$count_row = $count_result->fetch_assoc();
+$total_cards = $count_row['total_cards'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +50,7 @@
                 <div class="card">
                     <i class="fa-solid fa-id-card"></i>
                     <div class="card-text">
-                        <span>280</span>
+                        <span><?php echo $total_cards; ?></span>
                         <p>Cards</p>
                     </div>
                 </div>

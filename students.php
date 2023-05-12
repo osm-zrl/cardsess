@@ -1,9 +1,54 @@
+<?php
+require('dbconfig.php');
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // retrieve the student data from the POST request
+    $cef = $_POST['cef'];
+    $first_name = $_POST['firstname'];
+    $last_name = $_POST['lastname'];
+    $birthday = $_POST['birthday'];
+    $gender = $_POST['gender'];
+    $class_id = $_POST['classe'];
+
+    // prepare the SQL statement to insert the student data
+    $stmt = $conn->prepare("INSERT INTO student (student_id, first_name, last_name, birthday, gender, class_id) 
+                           VALUES (?, ?, ?, ?, ?, ?)");
+
+    // bind the parameters to the SQL statement
+    $stmt->bind_param("sssssi", $cef, $first_name, $last_name, $birthday, $gender, $class_id);
+
+    // execute the SQL statement to insert the student data
+    if (!($stmt->execute())) {
+        echo "Error: " . $stmt->error;
+    }
+    // close the statement object
+    $stmt->close();
+}
+
+// prepare the SQL statement to retrieve all students from the table
+$sql = "SELECT s.student_id, s.first_name, s.last_name, s.birthday, s.gender, c.name AS class_name, c.level
+        FROM student s
+        JOIN classe c ON s.class_id = c.class_id";
+
+// execute the SQL statement and store the result
+$result = $conn->query($sql);
+
+// prepare the SQL statement to count the total number of students
+$count_sql = "SELECT COUNT(*) as total_students FROM student";
+
+// execute the SQL statement to count the total number of students and store the result
+$count_result = $conn->query($count_sql);
+$count_row = $count_result->fetch_assoc();
+$total_students = $count_row['total_students'];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <?php require('head.php');
     require('dbconfig.php');?>
     <title>Students</title>
+    <link rel="stylesheet" href="css/student.css">
 </head>
 <body>
     <?php require('aside.php');?>
@@ -19,7 +64,7 @@
                 <div class="card">
                     <i class="fa-solid fa-users"></i>
                     <div class="card-text">
-                        <span>320</span>
+                        <span><?php echo $total_students; ?></span>
                         <p>Students</p>
                     </div>
                 </div>
@@ -34,13 +79,32 @@
                     <i class="fa-solid fa-chalkboard-user"></i>
                     <div class="card-text">
                         <span>--%</span>
-                        <p>attendance rate</p>
+                        <p>attendance</p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="link-div">
+            <div class="search-box" id="search-box">
+                <input type="text" placeholder="Search..." class="search-input">
+                <button type="submit" class="search-button"><i class="fa-solid fa-search"></i></button>
+            </div>
             <a href="#" onclick="togglecard()" id="addstudentbtn">Add Student</a>
+        </div>
+        <div class="filter">
+            <select name="gender" id="gender">
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            <select name="classe" id="classe">
+                <option value="">Select Student Group</option>
+                <option value="1">Développement digital 101</option>
+                <option value="2">Développement digital 102</option>
+                <option value="3">gestion entreprise 101</option>
+                <option value="4">gestion entreprise 102</option>
+                <option value="5">infographie</option>
+            </select>
         </div>
         <!-- table -->
         <table>
@@ -52,11 +116,31 @@
                     <th scope="col">gender</th>
                     <th scope="col">Classe</th>
                     <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
+                    <th scope="col">View</th>
                 </tr>
             </thead>
-            <tbody>
-                
+            <tbody id="table-body">
+                <?php
+                    if ($result->num_rows > 0) {
+                        // output data of each row as a table row
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>" . $row["student_id"] . "</td>";
+                            echo "<td>" . $row["first_name"] . " " . $row["last_name"] . "</td>";
+                            echo "<td>" . date_diff(date_create($row["birthday"]), date_create('today'))->y . "</td>";
+                            echo "<td>" . $row["gender"] . "</td>";
+                            echo "<td>" . $row["class_name"] . " " . $row["level"] . "</td>";
+                            echo "<td><a href='edit_student.php?student_id=" . $row["student_id"] . "'><i class='fa-solid fa-pen-to-square'></i></a></td>";
+                            echo "<td><a href='delete_student.php?student_id=" . $row["student_id"] . "'><i class='fa-solid fa-eye'></i></a></td>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        // output message if no rows are returned
+                        echo "No students found.";
+                    }            
+                    $result->close();
+                    $conn->close();    
+                ?>
             </tbody>
         </table>
         <!-- forms -->
@@ -86,11 +170,11 @@
                     <div class="col">
                         <select name="classe" id="classe">
                             <option value="">Select Student Group</option>
-                            <option value="1">Developpement digital 101</option>
-                            <option value="2">Developpement digital 102</option>
-                            <option value="3">gestion etreprise 101</option>
-                            <option value="4">gestion etreprise 102</option>
-                            <option value="5">infograpie</option>
+                            <option value="1">Développement digital 101</option>
+                            <option value="2">Développement digital 102</option>
+                            <option value="3">gestion entreprise 101</option>
+                            <option value="4">gestion entreprise 102</option>
+                            <option value="5">infographie</option>
                         </select>
                     </div>
                     <button type="submit">Add Student</button>
@@ -101,3 +185,32 @@
     <?php require('footer.php') ?>
 </body>
 </html>
+
+<style>
+
+</style>
+
+<script>
+// filter function
+$(document).ready(function() {
+  $('.search-input').on('input', function() {
+    var searchValue = $(this).val();
+    var genderFilter = $('#gender').val();
+    var classFilter = $('#classe').val();
+    $.ajax({
+      url: 'search_students.php',
+      type: 'POST',
+      data: { searchValue: searchValue, genderFilter: genderFilter, classFilter: classFilter },
+      success: function(response) {
+        $('#table-body').html(response);
+      },
+      error: function(xhr, status, error) {
+        console.log('Error:', error);
+      }
+    });
+  });
+  $('#gender, #classe').on('change', function() {
+    $('.search-input').trigger('input');
+  });
+});
+</script>

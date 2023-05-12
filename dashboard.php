@@ -1,35 +1,8 @@
-<?php
-require('dbconfig.php');
-
-// prepare the SQL statement to count the total number of students
-$count_students = "SELECT COUNT(*) as total_students FROM student";
-
-// execute the SQL statement to count the total number of students and store the result
-$count_result = $conn->query($count_students);
-$count_row = $count_result->fetch_assoc();
-$total_students = $count_row['total_students'];
-
-// prepare the SQL statement to count the total number of classes
-$count_classes = "SELECT COUNT(DISTINCT class_id) as total_classes FROM classe";
-
-// execute the SQL statement to count the total number of classes and store the result
-$count_result = $conn->query($count_classes);
-$count_row = $count_result->fetch_assoc();
-$total_classes = $count_row['total_classes'];
-
-// prepare the SQL statement to count the total number of classes
-$count_classes = "SELECT COUNT(DISTINCT card_id) as total_cards FROM cards";
-
-// execute the SQL statement to count the total number of classes and store the result
-$count_result = $conn->query($count_classes);
-$count_row = $count_result->fetch_assoc();
-$total_cards = $count_row['total_cards'];
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php require('head.php');?>
+    <?php require('head.php');
+    require('dbconfig.php');?>
     <title>Dashboard</title>
 </head>
 <body>
@@ -39,27 +12,27 @@ $total_cards = $count_row['total_cards'];
         <div class="top-main">
             <div class="title">
                 <h2>Welcome Back, Admin !</h2>
-                <h5>Here's your students overview</h5>
+                <h5>Here’s your students overview</h5>
             </div>
             <div class="cards">
                 <div class="card">
                     <i class="fa-solid fa-users"></i>
                     <div class="card-text">
-                        <span><?php echo $total_students; ?></span>
+                        <span>320</span>
                         <p>Students</p>
                     </div>
                 </div>
                 <div class="card">
                     <i class="fa-solid fa-id-card"></i>
                     <div class="card-text">
-                        <span><?php echo $total_cards; ?></span>
+                        <span>280</span>
                         <p>Cards</p>
                     </div>
                 </div>
                 <div class="card">
                     <i class="fa-solid fa-chalkboard"></i>
                     <div class="card-text">
-                        <span><?php echo $total_classes; ?></span>
+                        <span>15</span>
                         <p>Classes</p>
                     </div>
                 </div>
@@ -89,6 +62,8 @@ $total_cards = $count_row['total_cards'];
 		    </div>
 	    </div>
     </main>
-    <?php require('footer.php') ?>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

@@ -146,10 +146,9 @@ main h3 {
 /* if you want to add a full empty div that contain the link you must add the "a" link inside the div "link-div" */
 .link-div {
     display: flex;
-    align-items: end;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: space-between;
 }
-
 main a {
     width: fit-content;
     display: flex;
@@ -210,6 +209,17 @@ main table th {
     text-transform: uppercase;
 }
 
+main td a {
+    margin: 0;
+    padding: 00;
+    border: none;
+    display: contents;
+}
+main td a i {
+    font-size: 24px;
+    margin: 0;
+    padding: 0;
+}
 /* table style end*/
 
 /* charts style start*/
@@ -390,4 +400,3 @@ main td a {
     transition: 0.7s;
     margin-left:60px;
 }
-
