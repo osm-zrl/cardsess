@@ -116,7 +116,6 @@ $total_students = $count_row['total_students'];
                     <th scope="col">gender</th>
                     <th scope="col">Classe</th>
                     <th scope="col">Edit</th>
-                    <th scope="col">View</th>
                 </tr>
             </thead>
             <tbody id="table-body">
@@ -131,7 +130,6 @@ $total_students = $count_row['total_students'];
                             echo "<td>" . $row["gender"] . "</td>";
                             echo "<td>" . $row["class_name"] . " " . $row["level"] . "</td>";
                             echo "<td><a href='edit_student.php?student_id=" . $row["student_id"] . "'><i class='fa-solid fa-pen-to-square'></i></a></td>";
-                            echo "<td><a href='delete_student.php?student_id=" . $row["student_id"] . "'><i class='fa-solid fa-eye'></i></a></td>";
                             echo "</tr>";
                         }
                     } else {
