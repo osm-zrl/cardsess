@@ -29,7 +29,6 @@ if ($result->num_rows > 0) {
     echo "<td>" . $row["gender"] . "</td>";
     echo "<td>" . $row["class_name"] . " " . $row["level"] . "</td>";
     echo "<td><a href='edit_student.php?student_id=" . $row["student_id"] . "'><i class='fa-solid fa-pen-to-square'></i></a></td>";
-    echo "<td><a href='delete_student.php?student_id=" . $row["student_id"] . "'><i class='fa-solid fa-eye'></i></a></td>";
     echo "</tr>";
   }
 } else {
