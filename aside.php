@@ -33,7 +33,7 @@
             -webkit-transition:width .05s linear;
             transition:width .05s linear;
             z-index:1000;
-            transition: 0.5s;
+            transition: 0.3s;
         }
 
         .main-menu>ul {
@@ -164,9 +164,9 @@
                 </li>
                 <li class="has-subnav">
                     <a href="presence.php">
-                       <i class="fa fa-door-closed fa-2x"></i>
+                        <i class="fa fa-solid fa-wifi"></i>
                         <span class="nav-text">
-                            Entry/Exit
+                            Live Entry
                         </span>
                     </a>
                    
@@ -175,6 +175,7 @@
                 <li class="has-subnav">
                     <a href="#">
                        <i class="fa fa-clock-rotate-left fa-2x"></i>
+                       
                         <span class="nav-text">
                             History
                         </span>
