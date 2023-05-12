@@ -11,7 +11,7 @@ GND  -----> GND
 MISO -----> D6
 MOSI -----> D7
 SCK  -----> D5
-SDI  -----> D8
+SDA  -----> D8
 ------------------------------------------------------- */
 
 #define SS_PIN D8   // Set the SS pin for the RC522
@@ -58,6 +58,43 @@ void loop() {
   if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial()) {
     digitalWrite(LED_BUILTIN, LOW);
     delay(200);// Wait for a second
+    String CEF = "";
+    MFRC522::MIFARE_Key key;
+    for (byte i = 0; i < 6; i++) key.keyByte[i] = 0xFF;
+    byte block;
+    byte len;
+    MFRC522::StatusCode status;
+
+
+
+    byte buffer[18];
+    block = 4;
+    len = 18;
+
+    status = mfrc522.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, block, &key, &(mfrc522.uid));
+    if (status != MFRC522::STATUS_OK) {
+      Serial.print(F("Authentication failed: "));
+      Serial.println(mfrc522.GetStatusCodeName(status));
+      return;
+    }
+
+    status = mfrc522.MIFARE_Read(block, buffer, &len);
+    if (status != MFRC522::STATUS_OK) {
+      Serial.print(F("Reading failed: "));
+      Serial.println(mfrc522.GetStatusCodeName(status));
+      return;
+    }
+
+    for (uint8_t i = 0; i < 16; i++) {
+      if (buffer[i] != 32) { // Check if the current byte is not a space character
+        CEF += String(buffer[i]);
+      }
+    }
+    String result;
+    for (int i = 0; i < CEF.length(); i += 2) {
+      char c = (char) ((CEF.charAt(i) - '0') * 10 + (CEF.charAt(i + 1) - '0'));
+      result += c;
+    }
     digitalWrite(LED_BUILTIN, HIGH);  // Turn the LED off by making the voltage HIGH
     String Card_uid = "";
     for (byte i = 0; i < mfrc522.uid.size; i++) {
@@ -73,11 +110,11 @@ void loop() {
     else{
       OldCarduid = Card_uid;
     }
-    senddata(Card_uid);
+    senddata(Card_uid,result);
   }
 }
 //lfunction li katssift l UID dial lcard l server
-void senddata(String Card_uid) {
+void senddata(String Card_uid,String CEF) {
   Serial.println(Card_uid);
 
   if (WiFi.status() == WL_CONNECTED){
@@ -85,7 +122,7 @@ void senddata(String Card_uid) {
     WiFiClient client;
     http.begin(client, url);
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
-    int httpCode = http.POST("cardUID=" + String(Card_uid));
+    int httpCode = http.POST("cardUID=" + String(Card_uid)+"&CEF=" + String(CEF));
     //script kaychof wach data tssiftat nit ola kayn chi mochkil f server, ila makan 7ta mochkil katch3l lbola dial esp8266 
     if (httpCode == -1) {
       Serial.println("Server not responding");
