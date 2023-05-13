@@ -33,12 +33,16 @@ $total_cards = $count_row['total_cards'];
             animation-iteration-count: infinite;
             transition: 300ms;
         }
+        #cardWState{
+            height:20px;
+            background-color: honeydew;
+        }
     </style>
 </head>
 
 <body>
     <?php require('aside.php'); ?>
-    <!-- top main title + statics cards  -->
+    <!-- top main title + statics cards -->
     <main>
         <div id="black_layer" style="right:-100vw;"></div>
         <div class="top-main">
@@ -87,12 +91,22 @@ $total_cards = $count_row['total_cards'];
 
             </tbody>
         </table>
-        <div id="addstudent" class="form hidden" style="gap:0.5rem!important; ">
+        <div id="addstudent" class="form hidden">
             <div class="blocktitle">
                 <h3> add card</h3>
                 <i class="fa-solid fa-xmark" onclick="togglecard()"></i>
             </div>
 
+        
+        <div id="cardWState">
+                connecting to scanner
+                scanning card
+                checking database
+                writing into card
+                submiting into database
+        </div>
+
+        <div style="box-sizing:border-box;">
             <label for="">student id:</label>
             <select>
                 <option selected hidden>select student</option>
@@ -107,7 +121,17 @@ $total_cards = $count_row['total_cards'];
                     }
                 ?>
             </select>
-            <button onclick="submit()" class="d-block mx-auto" type = "button">SUBMIT</button>
+            <button onclick="scanCard(this)" class="d-block mx-auto" type = "button">SUBMIT</button>
+        </div>
+        <!-- 
+                connecting to scanner
+                scanning card
+                checking database
+                writing into card
+                submiting into database
+
+         -->
+
 
 
         </div>
