@@ -1,4 +1,3 @@
-
 <?php
 require('dbconfig.php');
 
@@ -18,25 +17,30 @@ $total_cards = $count_row['total_cards'];
     require('dbconfig.php'); ?>
     <title>manage cards</title>
     <style>
-        @keyframes spin{
+        @keyframes spin {
             from {
                 transform: rotate(0deg);
             }
 
-            to{
+            to {
                 transform: rotate(360deg);
             }
         }
+
         .i-spinners {
             animation-name: spin;
-            animation-duration:1s;
+            animation-duration: 1s;
             animation-iteration-count: infinite;
             transition: 300ms;
         }
-        #cardWState{
-            height:20px;
-            background-color: honeydew;
+
+        #addstudent {
+            overflow: hidden;
+            max-width:400px;
         }
+        
+
+        
     </style>
 </head>
 
@@ -54,7 +58,9 @@ $total_cards = $count_row['total_cards'];
                 <div class="card">
                     <i class="fa-solid fa-id-card"></i>
                     <div class="card-text">
-                        <span><?php echo $total_cards; ?></span>
+                        <span>
+                            <?php echo $total_cards; ?>
+                        </span>
                         <p>Cards</p>
                     </div>
                 </div>
@@ -96,34 +102,34 @@ $total_cards = $count_row['total_cards'];
                 <h3> add card</h3>
                 <i class="fa-solid fa-xmark" onclick="togglecard()"></i>
             </div>
+            <div style="box-sizing:border-box;">
 
-        
-        <div id="cardWState">
-                connecting to scanner
-                scanning card
-                checking database
-                writing into card
-                submiting into database
-        </div>
-
-        <div style="box-sizing:border-box;">
-            <label for="">student id:</label>
-            <select>
-                <option selected hidden>select student</option>
-                <?php 
+                <div id="addcard_popup_msgArea">
+                </div>
+                <label>card serial:</label>
+                <div class="input-group mb-3 mt-2">
+                    <input disabled type="text" class="form-control" placeholder="card's serial" id="card_uid"
+                        aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="" type="button" id="scanCardBtn">scan</button>
+                </div>
+                <label for="">student id:</label>
+                <select>
+                    <option selected hidden>select student</option>
+                    <?php
                     $sql = "SELECT student_id, concat(first_name,' ',last_name) as full_name FROM student";
-                    $res = $conn -> query($sql);
-                    while ($row = $res->fetch_assoc()){
-                    
-                ?>
-                <option value="<?php echo $row['student_id']?>"><?php echo $row['student_id'] ,'_',$row['full_name'] ?> </option>
-                <?php
+                    $res = $conn->query($sql);
+                    while ($row = $res->fetch_assoc()) {
+
+                        ?>
+                        <option value="<?php echo $row['student_id'] ?>"><?php echo $row['student_id'], '_', $row['full_name'] ?> </option>
+                        <?php
                     }
-                ?>
-            </select>
-            <button onclick="scanCard(this)" class="d-block mx-auto" type = "button">SUBMIT</button>
-        </div>
-        <!-- 
+                    ?>
+                </select>
+                <button  class="d-block mx-auto my-2" type="button" style="min-width:150px;"
+                    id="submitBTN">SUBMIT</button>
+            </div>
+            <!-- 
                 connecting to scanner
                 scanning card
                 checking database
