@@ -6,75 +6,48 @@
     <title>main</title>
 </head>
 <body>
-    <?php require('aside.php');?>
-    <!-- top main title + statics cards  -->
-    <main>
-        <div class="top-main">
+<aside>
+<?php include('aside.php'); ?>
+</aside>
+<main>
+    <div class="top-main">
             <div class="title">
-                <h2>Your title here</h2>
-                <h5>Your description here</h5>
-            </div>
-            <div class="cards">
-                <div class="card">
-                    <i class="fa-solid fa-users"></i>
-                    <div class="card-text">
-                        <span>320</span>
-                        <p>Students</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <i class="fa-solid fa-id-card"></i>
-                    <div class="card-text">
-                        <span>280</span>
-                        <p>Cards</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <i class="fa-solid fa-chalkboard"></i>
-                    <div class="card-text">
-                        <span>15</span>
-                        <p>Classes</p>
-                    </div>
-                </div>
+                <h2>History</h2>
+                <h5>Votre description ici</h5>
             </div>
         </div>
-
-        <!-- <div class="link-div">
-            <a href="#" onclick="toggleAddStudent()" id="addstudentbtn">Add Student</a>
-        </div> -->
-        
-        <!-- ========================================================================= -->
-
-
-
-
-
-
-        <!-- ========================================================================== -->
-
         <table>
             <thead>
                 <tr>
-                    <th class="col"> col 1 </th>
-                    <th class="col"> col 2 </th>
-                    <th class="col"> col 3 </th>
-                    <th class="col"> col 4 </th>
-                    <th class="col"> col 5 </th>
+                    <th class="col">ID du scan</th>
+                    <th class="col">ID de la carte</th>
+                    <th class="col">ID de l'étudiant</th>
+                    <th class="col">Nom complet de l'étudiant</th>
+                    <th class="col">Date et heure du scan</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td> item 1 </td>
-                    <td> item 2 </td>
-                    <td> item 3 </td>
-                    <td> item 4 </td>
-                    <td> item 5 </td>
-                </tr>
+            <tbody id="logTable">
+                <?php
+                    require('dbconfig.php');
+                    if ($conn->connect_errno) {
+                        die('Échec de la connexion au serveur!');
+                    }
+                    $sql = "SELECT log_history.scan_id, log_history.card_id, cards.student_id, CONCAT(student.first_name, ' ', student.last_name) as nom_complet, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id ORDER BY log_history.scan_time DESC;";
+                    $result = $conn->query($sql);
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row['scan_id'] . "</td>";
+                        echo "<td>" . $row['card_id'] . "</td>";
+                        echo "<td>" . $row['student_id'] . "</td>";
+                        echo "<td>" . $row['nom_complet'] . "</td>";
+                        echo "<td>" . $row['scan_time'] . "</td>";
+                        echo "</tr>";
+                    }
+                    $result->free();
+                    $conn->close();
+                ?>
             </tbody>
         </table>
-        
-        
-        
     </main>
     <? require('footer.php')?>
 </body>
