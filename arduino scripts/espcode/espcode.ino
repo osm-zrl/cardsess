@@ -12,6 +12,9 @@ MISO -----> D6
 MOSI -----> D7
 SCK  -----> D5
 SDA  -----> D8
+green LED > D2
+orange LED > D3
+red LED > D0
 ------------------------------------------------------- */
 
 #define SS_PIN D8   // Set the SS pin for the RC522
