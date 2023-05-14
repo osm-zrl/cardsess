@@ -10,14 +10,18 @@ if (isset($_POST['cardUID'])){
     if ($result->num_rows > 0){
         $row = $result->fetch_assoc();
         if ($row['card_active'] == 1) {
-            $Stat = "Access Granted";
+            $Stat = "0";
             $sql = "INSERT INTO log_history(card_id) VALUES('$fullID')";
             $conn->query($sql);
         } else {
-            $Stat = "Card Desactivated";
+            $Stat = "1";
         }
     }else{
-        $Stat = "Access Denied";
+        $Stat = "2";
     }
     echo $Stat;
 }
+/* stat description: */
+/* 0 will trigger green
+1 will trigger orange 
+2 will trigger red*/

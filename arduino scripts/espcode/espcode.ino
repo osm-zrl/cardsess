@@ -34,20 +34,30 @@ void setup() {
   SPI.begin();         // Initialize SPI
   mfrc522.PCD_Init();  // Initialize the RC522
   Serial.println("RFID reader initialized");
+
+  pinMode(D2, OUTPUT); //green led
+  pinMode(D3, OUTPUT); //orange led
+  pinMode(D0, OUTPUT); //red led
+
 	mfrc522.PCD_DumpVersionToSerial();
   //connection m3a lwifi
   WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.println("Connecting to WiFi...");
-  }
-  Serial.println("Connected to WiFi");
+  
+  connecttowifi();
   //declaration dial led likayna f esp8266
   pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(D2,LOW);
+  digitalWrite(D3,LOW);
+  digitalWrite(D0,LOW);
+  digitalWrite(LED_BUILTIN, HIGH);
+  
 }
 
 void loop() {
-  digitalWrite(LED_BUILTIN, HIGH);
+  if(WiFi.status() != WL_CONNECTED){
+    connecttowifi();
+  }
+  
   //script kay7bss la carte l9dima tsskana 15s
   if (millis() - previousMillis >= 15000) {
     previousMillis = millis();
@@ -116,7 +126,6 @@ void loop() {
 //lfunction li katssift l UID dial lcard l server
 void senddata(String Card_uid,String CEF) {
   Serial.println(Card_uid);
-
   if (WiFi.status() == WL_CONNECTED){
     HTTPClient http;
     WiFiClient client;
@@ -126,17 +135,39 @@ void senddata(String Card_uid,String CEF) {
     //script kaychof wach data tssiftat nit ola kayn chi mochkil f server, ila makan 7ta mochkil katch3l lbola dial esp8266 
     if (httpCode == -1) {
       Serial.println("Server not responding");
+      digitalWrite(D3,HIGH);  
+      delay(1000);   
     } else {
-      digitalWrite(LED_BUILTIN, LOW);
       String response = http.getString();
       http.end();
       // script kayjib kolchi lidar lih echo f fichier getUID.php kansstkhdmo bach n confirmer lcondition dial request
       Serial.println("HTTP response code: " + String(httpCode));
-      Serial.println("Response: " + response);
-      delay(200);// Wait for a second
-      digitalWrite(LED_BUILTIN, HIGH);  // Turn the LED off by making the voltage HIGH
+      if(response == "0"){
+        digitalWrite(D2,HIGH);
+        delay(1000);
+        digitalWrite(D2,LOW);
+      }else if(response == "1"){
+        digitalWrite(D3,HIGH);
+        delay(1000);
+        digitalWrite(D3,LOW);
+      }else{
+        digitalWrite(D0,HIGH);
+        delay(1000);
+        digitalWrite(D0,LOW);
+      }      
     }
   }else{
     Serial.println("WiFi not connected");
+    connecttowifi();
   }
+}
+void connecttowifi(){
+  while (WiFi.status() != WL_CONNECTED) {
+    digitalWrite(D3,HIGH);
+    delay(1000);
+    Serial.println("Connecting to WiFi...");
+    digitalWrite(D3,LOW);
+    delay(1000);
+  }
+  Serial.println("Connected to WiFi");
 }
