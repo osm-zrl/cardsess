@@ -36,7 +36,7 @@ $total_cards = $count_row['total_cards'];
 
         #addstudent {
             overflow: hidden;
-            max-width: 400px;
+            max-width:400px;
         }
     </style>
 </head>
@@ -84,13 +84,12 @@ $total_cards = $count_row['total_cards'];
         <table>
             <thead>
                 <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">Card UID</th>
-                    <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
+                    <th scope="col">CARD ID</th>
+                    <th scope="col">Student ID</th>
+                    <th scope="col">CARD ACTIVE</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="cardsTableB">
 
             </tbody>
         </table>
@@ -109,8 +108,8 @@ $total_cards = $count_row['total_cards'];
                         aria-label="Recipient's username" aria-describedby="button-addon2">
                     <button class="" type="button" id="scanCardBtn">scan</button>
                 </div>
-                <label for="">student id:</label>
-                <select id="student_id">
+                <label class="d-block" for="">student id:</label>
+                <select style="width:100%" id="student_id">
                     <option selected hidden>select student</option>
                     <?php
                     $sql = "SELECT student_id, concat(first_name,' ',last_name) as full_name FROM student";
