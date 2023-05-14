@@ -4,14 +4,14 @@ include('dbconfig.php');
 if (isset($_POST['cardUID'])){
     $cardUID = $_POST['cardUID'];
     $CEF = $_POST['CEF'];
-    $fullID = strval($cardUID) + strval($CEF);
+    $fullID = $cardUID.$CEF;
     $sql = "SELECT card_active from cards WHERE card_id = '$fullID'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0){
         $row = $result->fetch_assoc();
-        if ($row['cardActive'] == 1) {
+        if ($row['card_active'] == 1) {
             $Stat = "Access Granted";
-            $sql = "INSERT INTO log_history(cardUID) VALUES('$fullID')";
+            $sql = "INSERT INTO log_history(card_id) VALUES('$fullID')";
             $conn->query($sql);
         } else {
             $Stat = "Card Desactivated";
