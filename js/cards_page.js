@@ -111,6 +111,8 @@ function readcard() {
                     clearInterval(readingCard)
                     if (response.split(':')[1].split(',')[1].trim() != '') {
                         addMSG('warning','WARNING: this card got a <strong> student id </strong> in it!')
+                    }else{
+                        addMSG('success',"card's id scanned successfully")
                     }
                     scanCardBtn.innerHTML = 'scan'
 
@@ -164,6 +166,11 @@ function checkINFO(){
                         $("#exampleModal").modal('hide');
                     })
                     document.getElementById('disableAndSubmitBtn').removeEventListener('click',()=>{})
+
+                    document.getElementById('canceldisableAndSubmitBtn').addEventListener('click',()=>{
+                        document.getElementById('submitBTN').innerHTML = 'submit';
+                    })
+                    document.getElementById('canceldisableAndSubmitBtn').removeEventListener('click',()=>{})
                     break
                 default:
                     regCard((card_uid+student_id),student_id)
@@ -240,7 +247,6 @@ function submit(btn){
         DelDBCard((card_uid+student_id));
         addMSG('danger','card registration canceled.');
         document.getElementById('submitBTN').innerHTML = 'submit';
-
     }
     else{
         writeCard = undefined
@@ -260,13 +266,26 @@ function writeCard(stud_id){
             success: function (response) {
                 response = response.trim()
                 if (response == 'SUCCESS: CEF written to card.'){
-                    addMSG('success','card added succesfully')
+                    addMSG('success','card added successfully')
                     clearInterval(writingCard)
                     document.getElementById('submitBTN').innerHTML = 'submit'
                     writingCard = undefined
-                }else{
+
+                }else if (response=='ERROR: card not detected'){
                     addMSG('info','please set the card on Scanner to complete the process!')
                     console.log(response)
+
+                }else if(response = 'ERROR: arduino not connected!'){
+                    addMSG('danger','Failed to add card: scanner not connected to RFIDSER')
+                    document.getElementById('submitBTN').innerHTML = 'submit';
+                    clearInterval(writingCard)
+                    writingCard = undefined
+                }else{
+                    addMSG('danger','something went wrong!')
+                    document.getElementById('submitBTN').innerHTML = 'submit';
+                    clearInterval(writingCard)
+                    writingCard = undefined
+
                 }
                 
             },
@@ -274,9 +293,11 @@ function writeCard(stud_id){
                 console.log('Error:', error);
                 clearInterval(writingCard);
                 addMSG('failed to connect to RFIDSER')
+                document.getElementById('submitBTN').innerHTML = 'submit'
+                writingCard = undefined
             }
         });
-    },3000)
+    },2000)
     
 }
 function DelDBCard(card_id){

@@ -157,7 +157,7 @@ $total_cards = $count_row['total_cards'];
                         <strong>Are you sure you want to disable it?</strong>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="canceldisableAndSubmitBtn">No</button>
                         <button type="button" class="btn btn-primary" id="disableAndSubmitBtn">Yes</button>
                     </div>
                 </div>
