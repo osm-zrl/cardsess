@@ -67,14 +67,13 @@ function scanCard(Btn){
     
 
 } */
-var readingCard;
+var readingCard,card_uid,student_id;
 const addcard_popup_msgArea = document.getElementById('addcard_popup_msgArea')
 const scanCardBtn = document.getElementById('scanCardBtn')
+
 scanCardBtn.addEventListener('click', () => {
     scanCardBtn.innerHTML = `
-            <div class="spinner-border text-light" role="status">
-                <span style= "font-size:10px;" class="visually-hidden">Loading...</span>
-            </div>
+    <i style="font-size:1.3rem; color:white;" class="fa-solid fa-spinner i-spinners"></i>
             `
     if (readingCard == undefined) {
         readcard()
@@ -87,7 +86,7 @@ scanCardBtn.addEventListener('click', () => {
 
 })
 function addMSG(color, text) {
-    addcard_popup_msgArea.innerHTML = `
+    addcard_popup_msgArea.innerHTML =  `
                         <div class="alert alert-`+color+` alert-dismissible fade show" style="width: 100%;" role="alert">
                         `+text+`
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -104,17 +103,18 @@ function readcard() {
             crossDomain: true,
             success: function (response) {
                 if (response.split(':')[0] == 'SUCCESS') {
-                    let uid = response.split(':')[1].split(',')[0].trim()
-                    let cef = response.split(':')[1].split(',')[1].trim()
-                    document.getElementById('card_uid').value = uid
+                    card_uid = response.split(':')[1].split(',')[0].trim()
+
+                    document.getElementById('card_uid').value = card_uid
+
                     clearInterval(readingCard)
-                    if (cef != '') {
-                        addMSG('info','this card is already registered for another student!')
+                    if (response.split(':')[1].split(',')[1].trim() != '') {
+                        addMSG('warning','WARNING: this card is already registered for another student!')
                     }
                     scanCardBtn.innerHTML = 'scan'
 
                 }
-                else {
+                else{
                     console.log('aucun carte')
                 }
             },
@@ -126,4 +126,113 @@ function readcard() {
             }
         });
     }, 1000)
+}
+
+function checkINFO(){
+    student_id = document.getElementById('student_id').value
+    $.ajax({
+        url: 'php/cards_check.php',
+        type: 'POST',
+        crossDomain: true,
+        data: {
+            'student_id': student_id,
+            'card_uid': card_uid,
+        },
+        success: function (response) {
+            response = response.trim()
+            console.log(response); // Do something with the response data
+            
+            switch(parseInt(response.trim())){
+                case 0:
+                    addMSG('warning','card already exist in database!')
+                    break
+                case 1:
+                    $("#exampleModal").modal('show');
+                    document.getElementById('disableAndSubmitBtn').addEventListener('click',()=>{
+                        disableCards(student_id)
+                        $("#exampleModal").modal('hide');
+                    })
+                    document.getElementById('disableAndSubmitBtn').removeEventListener('click',()=>{})
+
+                    break
+            }
+
+            document.getElementById('submitBTN').innerHTML = 'submit'
+
+
+        },
+        error: function (xhr, status, error) {
+            console.log('Error:', error);
+        }
+    });
+    
+}
+
+function disableCards(studID){
+    $.ajax({
+        url: 'php/disable_card.php',
+        type: 'POST',
+        crossDomain: true,
+        data: {
+            'student_id': student_id,
+        },
+        success: function (response) {
+            response = response.trim()
+            if (response == 'true'){
+                regCard((card_uid+student_id),student_id)
+            } // Do something with the response data
+
+        },
+        error: function (xhr, status, error) {
+            console.log('Error:', error);
+        }
+    });
+}
+
+function regCard(card_id,stud_id){
+    console.log('am here')
+    $.ajax({
+        url: 'php/regcard.php',
+        type: 'POST',
+        crossDomain: true,
+        data: {
+            'card_id': card_id,
+            'student_id': stud_id,
+            
+        },
+        success: function (response) {
+            response = response.trim()
+            if (response=='true'){
+                writeCard(student_id)
+            } 
+
+        },
+        error: function (xhr, status, error) {
+            console.log('Error:', error);
+        }
+    });
+}
+
+function submit(btn){
+    btn.innerHTML = `<i style="font-size:1.3rem; color:white;" class="fa-solid fa-spinner i-spinners"></i>`
+    checkINFO()
+}
+function writeCard(stud_id){
+    $.ajax({
+        url: 'http://127.0.0.1:8043/write',
+        type: 'GET',
+        crossDomain: true,
+        data: {
+            'cef': stud_id,
+            
+            
+        },
+        success: function (response) {
+            response = response.trim()
+            console.log(response)
+        },
+        error: function (xhr, status, error) {
+            console.log('Error:', error);
+        }
+    });
 }

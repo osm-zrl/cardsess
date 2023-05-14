@@ -36,11 +36,8 @@ $total_cards = $count_row['total_cards'];
 
         #addstudent {
             overflow: hidden;
-            max-width:400px;
+            max-width: 400px;
         }
-        
-
-        
     </style>
 </head>
 
@@ -113,7 +110,7 @@ $total_cards = $count_row['total_cards'];
                     <button class="" type="button" id="scanCardBtn">scan</button>
                 </div>
                 <label for="">student id:</label>
-                <select>
+                <select id="student_id">
                     <option selected hidden>select student</option>
                     <?php
                     $sql = "SELECT student_id, concat(first_name,' ',last_name) as full_name FROM student";
@@ -126,8 +123,8 @@ $total_cards = $count_row['total_cards'];
                     }
                     ?>
                 </select>
-                <button  class="d-block mx-auto my-2" type="button" style="min-width:150px;"
-                    id="submitBTN">SUBMIT</button>
+                <button class="d-block mx-auto my-2" type="button" style="min-width:150px;" id="submitBTN"
+                    onclick="submit(this)">SUBMIT</button>
             </div>
             <!-- 
                 connecting to scanner
@@ -141,6 +138,31 @@ $total_cards = $count_row['total_cards'];
 
 
         </div>
+        </div>
+        <!-- Button trigger modal -->
+        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Launch demo modal
+        </button> -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Warning</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <strong>Warning:</strong>this student got another active card,by clicking yes the old card would be disabled in order to submit the new one.
+                        <br>
+                        <strong>Are you sure you want to disable it?</strong>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-primary" id="disableAndSubmitBtn">Yes</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
