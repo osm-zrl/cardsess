@@ -19,11 +19,10 @@
         <table>
             <thead>
                 <tr>
-                    <th class="col">ID du scan</th>
-                    <th class="col">ID de la carte</th>
-                    <th class="col">ID de l'étudiant</th>
-                    <th class="col">Nom complet de l'étudiant</th>
-                    <th class="col">Date et heure du scan</th>
+                    <th class="col">CARD'S ID</th>
+                    <th class="col">STUDENT'S ID</th>
+                    <th class="col">STUDENT'S FULLNAME</th>
+                    <th class="col">TIMESTAMP</th>
                 </tr>
             </thead>
             <tbody id="logTable">
@@ -36,7 +35,6 @@
                     $result = $conn->query($sql);
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
-                        echo "<td>" . $row['scan_id'] . "</td>";
                         echo "<td>" . $row['card_id'] . "</td>";
                         echo "<td>" . $row['student_id'] . "</td>";
                         echo "<td>" . $row['nom_complet'] . "</td>";

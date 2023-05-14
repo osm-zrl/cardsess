@@ -1,6 +1,6 @@
 <?php
 require('../dbconfig.php');
-$sql = "SELECT * FROM cards";
+$sql = "SELECT * FROM cards order by student_id";
 $res = $conn->query($sql);
 $data = array();
 while ($row = $res->fetch_assoc()) {

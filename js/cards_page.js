@@ -97,6 +97,7 @@ function addMSG(color, text) {
 addMSG('info','keep the card on the scanner')
 
 function readcard() {
+    console.log('readcard function')
     readingCard = setInterval(() => {
         $.ajax({
             url: 'http://127.0.0.1:8043/read',
@@ -142,6 +143,7 @@ function readcard() {
 }
 
 function checkINFO(){
+    console.log('checkinfo function')
     student_id = document.getElementById('student_id').value
     $.ajax({
         url: 'php/cards_check.php',
@@ -189,6 +191,7 @@ function checkINFO(){
 }
 
 function disableCards(studID){
+    console.log('disablecards function')
     $.ajax({
         url: 'php/disable_card.php',
         type: 'POST',
@@ -210,6 +213,7 @@ function disableCards(studID){
 }
 
 function regCard(card_id,stud_id){
+    console.log('regcard function')
     $.ajax({
         url: 'php/regcard.php',
         type: 'POST',
@@ -237,16 +241,18 @@ function regCard(card_id,stud_id){
 }
 
 function submit(btn){
-    
+    console.log('submit clicked!')
     clearInterval(writingCard)
     if (writingCard == undefined){
+        console.log('1')
         btn.innerHTML = `<i style="font-size:1.3rem; color:white;" class="fa-solid fa-spinner i-spinners"></i>`
         checkINFO()
     }else if(carddataREG == true){
-
+        console.log('2')
         DelDBCard((card_uid+student_id));
         addMSG('danger','card registration canceled.');
         document.getElementById('submitBTN').innerHTML = 'submit';
+        writingCard = undefined
     }
     else{
         writeCard = undefined
@@ -255,6 +261,7 @@ function submit(btn){
     
 }
 function writeCard(stud_id){
+    console.log('writecard function')
     writingCard = setInterval(()=>{
         $.ajax({
             url: 'http://127.0.0.1:8043/write',
@@ -270,6 +277,8 @@ function writeCard(stud_id){
                     clearInterval(writingCard)
                     document.getElementById('submitBTN').innerHTML = 'submit'
                     writingCard = undefined
+                    getAllCardsTable()
+                    getCardsState()
 
                 }else if (response=='ERROR: card not detected'){
                     addMSG('info','please set the card on Scanner to complete the process!')
@@ -301,6 +310,7 @@ function writeCard(stud_id){
     
 }
 function DelDBCard(card_id){
+    console.log('delcard function')
     $.ajax({
         url: 'php/del_corrupt_card.php',
         type: 'POST',
@@ -332,11 +342,22 @@ function getAllCardsTable(){
         type: 'GET',
         dataType: 'json',
         success: function (data) {
+            Tbody.innerHTML = ''
             for (let i = 0; i < data.length; i++) {
+                switch(data[i].card_active){
+                    case '0':
+                        card_state = `<i class="fa-solid fa-circle-xmark" style="color: #97111e;"></i>`
+                        break
+                    case '1':
+                        card_state = `<i class="fa-solid fa-circle-check" style="color: #1a7020;"></i>`
+                        break
+                    default:
+                        card_state = 'default'
+                }
                 let row = `<tr>
                 <td>` + data[i].card_id + `</td>
                 <td>` + data[i].student_id + `</td>
-                <td>` + data[i].card_active + `</td>
+                <td>` + card_state + `</td>
                 </tr>`;
                 Tbody.innerHTML += row; // Add the new row to the top of the table
 
@@ -348,4 +369,25 @@ function getAllCardsTable(){
 
     })
 }
+
+
+function getCardsState(){
+    $.ajax({
+        url:'php/getCardsState.php',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            console.log(data)
+            
+            document.getElementById('total_cards').innerText = data[0]['total_cards'] 
+            document.getElementById('total_active_cards').innerText = data[1]['total_active_cards']
+            document.getElementById('total_desactive_cards').innerText = data[2]['total_desactive_cards']
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log('Error: ' + textStatus);
+        }
+
+    })
+}
 getAllCardsTable()
+getCardsState()

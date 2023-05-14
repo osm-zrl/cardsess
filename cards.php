@@ -2,12 +2,15 @@
 require('dbconfig.php');
 
 // prepare the SQL statement to count the total number of classes
-$count_classes = "SELECT COUNT(DISTINCT card_id) as total_cards FROM cards";
+$sql = "SELECT COUNT(DISTINCT card_id) as total_cards FROM cards";
+$count_result = $conn->query($sql);
+$count_row = $count_result->fetch_assoc();
 
-// execute the SQL statement to count the total number of classes and store the result
-$count_result = $conn->query($count_classes);
+$sql = "SELECT COUNT(DISTINCT card_id) as total_cards FROM cards WHERE card_active =1";
+$count_result = $conn->query($sql);
 $count_row = $count_result->fetch_assoc();
 $total_cards = $count_row['total_cards'];
+$total_active_cards = $count_row['total_cards'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,8 +58,8 @@ $total_cards = $count_row['total_cards'];
                 <div class="card">
                     <i class="fa-solid fa-id-card"></i>
                     <div class="card-text">
-                        <span>
-                            <?php echo $total_cards; ?>
+                        <span id="total_cards">
+                            
                         </span>
                         <p>Cards</p>
                     </div>
@@ -64,14 +67,16 @@ $total_cards = $count_row['total_cards'];
                 <div class="card">
                     <i class="fa-solid fa-check"></i>
                     <div class="card-text">
-                        <span>228</span>
+                        <span id="total_active_cards">
+                            
+                        </span>
                         <p>Active Cards</p>
                     </div>
                 </div>
                 <div class="card">
                     <i class="fa-solid fa-xmark"></i>
                     <div class="card-text">
-                        <span>52</span>
+                        <span id="total_desactive_cards"></span>
                         <p>Blocked Cards</p>
                     </div>
                 </div>
