@@ -338,6 +338,31 @@ function DelDBCard(card_id){
         }
     });
 }
+function desCard(cell){
+    let C_id = cell.getAttribute('card_id')
+    let C_stat = cell.getAttribute('card_stat')
+    console.log(C_id)
+    $.ajax({
+        url: 'php/desAndActCard.php',
+        type: 'POST',
+        crossDomain: true,
+        data: {
+            'card_id': C_id,
+            'card_stat':C_stat,
+            
+        },
+        success: function (response) {
+            console.log(response)
+            getAllCardsTable()
+            getCardsState()
+        },
+        error: function (xhr, status, error) {
+            console.log('Error:', error);
+        }
+        
+    });
+
+}
 function getAllCardsTable(){
     $.ajax({
         url:'php/getCardsTable.php',
@@ -348,10 +373,10 @@ function getAllCardsTable(){
             for (let i = 0; i < data.length; i++) {
                 switch(data[i].card_active){
                     case '0':
-                        card_state = `<i class="fa-solid fa-circle-xmark" style="color: #97111e;"></i>`
+                        card_state = `<i onclick="desCard(this)" style="cursor:pointer; color: #97111e;" card_stat="`+data[i].card_active+`" card_id="`+data[i].card_id+`" class="fa-solid fa-circle-xmark" ></i>`
                         break
                     case '1':
-                        card_state = `<i class="fa-solid fa-circle-check" style="color: #1a7020;"></i>`
+                        card_state = `<i onclick="desCard(this)" style="cursor:pointer; color: #1a7020;" card_stat="`+data[i].card_active+`" card_id="`+data[i].card_id+`" class="fa-solid fa-circle-check" ></i>`
                         break
                     default:
                         card_state = 'default'
@@ -393,3 +418,4 @@ function getCardsState(){
 }
 getAllCardsTable()
 getCardsState()
+

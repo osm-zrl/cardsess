@@ -3,7 +3,7 @@
 <head>
     <?php require('head.php');
     require('dbconfig.php');?>
-    <title>main</title>
+    <title>Presence Log</title>
 
     <style>
         .search-box {
@@ -75,8 +75,8 @@
         require('dbconfig.php');?>
         <div class="top-main">
             <div class="title">
-                <h2>History</h2>
-                <h5>Votre description ici</h5>
+                <h2>Presence Log</h2>
+                <h5>All time Card Scans</h5>
             </div>
         </div>
 
