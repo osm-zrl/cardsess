@@ -110,6 +110,8 @@ function readcard() {
                     document.getElementById('card_uid').value = card_uid
 
                     clearInterval(readingCard)
+                    
+
                     if (response.split(':')[1].split(',')[1].trim() != '') {
                         addMSG('warning','WARNING: this card got a <strong> student id </strong> in it!')
                     }else{
