@@ -1,6 +1,6 @@
 <?php
 // PAGE BACH KANAKHDO DATA MN ESP8266
-include('../dbconfig.php');
+include('dbconfig.php');
 if (isset($_POST['cardUID'])){
     $cardUID = $_POST['cardUID'];
     $CEF = $_POST['CEF'];
