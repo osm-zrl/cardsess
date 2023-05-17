@@ -38,8 +38,7 @@ $total_cards = $count_row['total_cards'];
     <main>
         <div class="top-main">
             <div class="title">
-                <h2>Welcome Back, Admin !</h2>
-                <h5>Here's your students overview</h5>
+                <img src="logo2.png" alt="">
             </div>
             <div class="cards">
                 <div class="card">
