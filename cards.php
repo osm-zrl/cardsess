@@ -41,7 +41,12 @@ $total_active_cards = $count_row['total_cards'];
             overflow: hidden;
             max-width:400px;
         }
+        .btn-close:hover{
+            background: inherit !important;
+            color:inherit !important;
+        }
     </style>
+    
 </head>
 
 <body>
@@ -82,8 +87,13 @@ $total_active_cards = $count_row['total_cards'];
                 </div>
             </div>
         </div>
-        <div class="link-div">
-            <a href="#" onclick="togglecard()" id="addstudentbtn">Add Card</a>
+        <div class="d-flex gap-2">
+            <div class="link-div">
+                <a href="#" onclick="togglecard()" id="addstudentbtn">Add Card</a>
+            </div>
+            <div class="link-div">
+                <a href="#" onclick="resetcard()" id="addstudentbtn">reset Card</a>
+            </div>
         </div>
         <!-- table -->
         <table>

@@ -108,7 +108,7 @@ void loop() {
       char c = (char) ((CEF.charAt(i) - '0') * 10 + (CEF.charAt(i + 1) - '0'));
       result += c;
     }
-    digitalWrite(LED_BUILTIN, HIGH);  // Turn the LED off by making the voltage HIGH
+    digitalWrite(LED_BUILTIN, HIGH);  
     String Card_uid = "";
     for (byte i = 0; i < mfrc522.uid.size; i++) {
       Card_uid += String(mfrc522.uid.uidByte[i] < 0x10 ? "0" : "");
@@ -139,7 +139,15 @@ void senddata(String Card_uid,String CEF) {
     if (httpCode == -1) {
       Serial.println("Server not responding");
       digitalWrite(D3,HIGH);  
-      delay(1000);   
+      delay(500);
+      digitalWrite(D3,LOW);
+      digitalWrite(D3,HIGH);  
+      delay(500);
+      digitalWrite(D3,LOW);
+      digitalWrite(D3,HIGH);  
+      delay(500);
+      digitalWrite(D3,LOW);
+  
     } else {
       String response = http.getString();
       http.end();

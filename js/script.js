@@ -12,3 +12,15 @@ function togglecard() {
         black_layer.style.right = '-100vw'
     }
 }
+function resetcard() {
+    let resetcard = document.getElementById('resetcard');
+    if (resetcard.classList.contains('hidden')) {
+        resetcard.classList.remove('hidden');
+        resetcard.classList.add('displayed');
+        black_layer.style.right = 0
+    } else {
+        resetcard.classList.add('hidden');
+        resetcard.classList.remove('displayed');
+        black_layer.style.right = '-100vw'
+    }
+}

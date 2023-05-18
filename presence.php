@@ -34,7 +34,7 @@ $total_cards = $count_row['total_cards'];
 
     <?php require('head.php') ?>
     <title>Document</title>
-
+    
 </head>
 
 <body>
@@ -81,7 +81,7 @@ $total_cards = $count_row['total_cards'];
 
         </div>
 
-        <table>
+        <table class="table table-striped">
 
             <thead>
 
@@ -123,17 +123,36 @@ $total_cards = $count_row['total_cards'];
                 type: 'GET',
                 dataType: 'json',
                 success: function (data) {
-                    for (let i = 0; i < data.length; i++) {
-                        let row = `<tr>
-                        <td>` + data[i].card_id + `</td>
-                        <td>` + data[i].student_id + `</td>
-                        <td>` + data[i].nom_complete + `</td>
-                        <td>` + data[i].scan_time + `</td>
-                        </tr>`;
-                        Tbody.innerHTML += row; // Add the new row to the top of the table
+                    if (data.length > 0) {
+                        if (Tbody.querySelectorAll('tr').length == 0) {
+                            Tbody.innerHTML = `<tr><td colspan='4'>No students found.</td></tr>`
+                        } else {
+                            Tbody.innerHTML = ''
+                            for (let i = 0; i < data.length; i++) {
+                                let row = `<tr>
+                            <td>` + data[i].card_id + `</td>
+                            <td>` + data[i].student_id + `</td>
+                            <td>` + data[i].nom_complete + `</td>
+                            <td>` + data[i].scan_time + `</td>
+                            </tr>`;
 
-                        lastID = data[0].scan_id
+                                Tbody.innerHTML += row; // Add the new row to the top of the table
+
+                                lastID = data[0].scan_id
+                                if (Tbody.querySelectorAll('tr').length == 10) {
+                                    break
+                                }
+                            }
+                        }
+
+                    }else{
+                        Tbody.innerHTML = `<tr><td colspan='4'>No students found.</td></tr>`
                     }
+
+
+
+
+
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log('Error: ' + textStatus);
@@ -144,7 +163,10 @@ $total_cards = $count_row['total_cards'];
 
 
         setInterval(function () {
+            //console.log(Tbody.innerHTML)
+            
             if (!(lastID == undefined)) {
+
                 $.ajax({
                     url: 'php/logData.php',
                     type: 'GET',
@@ -153,6 +175,10 @@ $total_cards = $count_row['total_cards'];
                         lastID: lastID,
                     },
                     success: function (data) {
+
+                        /* if (Tbody.innerHTML == `<tr><td colspan='4'>No students found.</td></tr>`) {
+                                Tbody.innerHTML = '';
+                        } */
                         $.each(data, function (index, row) {
                             if (row.scan_id > lastID) {
                                 let ro = `<tr>
@@ -161,8 +187,16 @@ $total_cards = $count_row['total_cards'];
                         <td>` + row.nom_complete + `</td>
                         <td>` + row.scan_time + `</td>
                         </tr>`;
+
                                 Tbody.innerHTML = ro + Tbody.innerHTML;
                                 lastID = row.scan_id;
+
+
+
+                            }
+
+                            if (Tbody.querySelectorAll('tr').length > 10) {
+                                Tbody.querySelectorAll('tr')[10].remove()
                             }
                         });
                     },
