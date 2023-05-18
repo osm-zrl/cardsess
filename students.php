@@ -129,7 +129,7 @@ $total_students = $count_row['total_students'];
                             echo "<td>" . date_diff(date_create($row["birthday"]), date_create('today'))->y . "</td>";
                             echo "<td>" . $row["gender"] . "</td>";
                             echo "<td>" . $row["class_name"] . " " . $row["level"] . "</td>";
-                            echo "<td><a href='edit_student.php?student_id=" . $row["student_id"] . "'><i class='fa-solid fa-pen-to-square'></i></a></td>";
+                            echo "<td><a href='edit_student.php?student_id=" . $row["student_id"] . "'><i class='fa-solid fa-eye'></i></a></td>";
                             echo "</tr>";
                         }
                     } else {
