@@ -96,7 +96,7 @@ $total_active_cards = $count_row['total_cards'];
             </div>
         </div>
         <!-- table -->
-        <table>
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">CARD ID</th>

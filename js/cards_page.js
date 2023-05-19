@@ -110,10 +110,10 @@ function readcard() {
                     document.getElementById('card_uid').value = card_uid
 
                     clearInterval(readingCard)
-                    
+                    let cardStudID = response.split(':')[1].split(',')[1].trim()
 
-                    if (response.split(':')[1].split(',')[1].trim() != '') {
-                        addMSG('warning','WARNING: this card got a <strong> student id </strong> in it!')
+                    if (cardStudID != '') {
+                        addMSG('warning','WARNING: this card got a <strong> student id </strong> in it!'+cardStudID)
                     }else{
                         addMSG('success',"card's id scanned successfully")
                     }

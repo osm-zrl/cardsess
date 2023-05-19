@@ -107,7 +107,7 @@ $total_students = $count_row['total_students'];
             </select>
         </div>
         <!-- table -->
-        <table>
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">cef</th>
