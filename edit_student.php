@@ -69,52 +69,47 @@ mysqli_close($conn);
             <div class="row">
                 <div class="col">
                     <h4>Student CEF :</h4>
-                    <input type="number" name="student_id" value="<?php echo $student_id; ?>">
+                    <h6><?php echo $student_id; ?></h6>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <h4>Student First Name :</h4>
-                    <input type="text" name="first_name" value="<?php echo $first_name; ?>">
+                    <h6><?php echo $first_name; ?></h6>
                 </div>
                 <div class="col">
                     <h4>Student Last Name :</h4>
-                    <input type="text" name="last_name" value="<?php echo $last_name; ?>">
+                    <h6><?php echo $last_name; ?></h6>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <h4>Student Birthday :</h4>
-                    <input type="date" name="birthday" value="<?php echo $birthday; ?>">
+                    <h6><?php echo $birthday; ?></h6>
                 </div>
                 <div class="col">
                     <h4>Student Gender :</h4>
-                    <select name="gender" id="gender">
-                        <option value="">Select Gender</option>
-                        <option value="male"<?php if ($gender == 'male') echo ' selected'; ?>>Male</option>
-                        <option value="female"<?php if ($gender == 'female') echo ' selected'; ?>>Female</option>
-                    </select>
+                    <h6><?php echo $gender; ?></h6>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <h4>Student Class :</h4>
-                    <select name="class_id" id="class_id">
-                        <option value="">Select Student Group</option>
-                        <option value="1"<?php if ($class_id == 1) echo ' selected'; ?>>Développement digital 101</option>
-                        <option value="2"<?php if ($class_id == 2) echo ' selected'; ?>>Développement digital 102</option>
-                        <option value="3"<?php if ($class_id == 3) echo ' selected'; ?>>gestion entreprise 101</option>
-                        <option value="4"<?php if ($class_id == 4) echo ' selected'; ?>>gestion entreprise 102</option>
-                        <option value="5"<?php if ($class_id == 5) echo ' selected'; ?>>infographie</option>
-                    </select>
+                    <h6><?php echo $class_id; ?></h6>
                 </div>
             </div>
-            <button type="submit">Update Student</button>
         </form>
+
+        <button type="submit" id="edit">Edit Infos</button>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/chart.js"></script>
     <script src="js/script.js"></script>
+    <script>
+         document.getElementById('edit').addEventListener('click', function() {
+        location.href = 'edit.php?student_id=<?php echo $student_id; ?>';
+    });
+    </script>
 </body>
 </html>
 
