@@ -89,7 +89,7 @@ $total_students = $count_row['total_students'];
                 <input type="text" placeholder="Search..." class="search-input">
                 <button type="submit" class="search-button"><i class="fa-solid fa-search"></i></button>
             </div>
-            <a href="#" onclick="togglecard()" id="addstudentbtn">Add Student</a>
+                <a href="#" onclick="togglecard()" id="addstudentbtn">Add Student</a>
         </div>
         <div class="filter">
             <select name="gender" id="gender">
@@ -176,6 +176,7 @@ $total_students = $count_row['total_students'];
                         </select>
                     </div>
                     <button type="submit">Add Student</button>
+                
                 </div>
             </form>
         </div>

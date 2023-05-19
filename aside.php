@@ -121,12 +121,24 @@
             width: 100%;
             height: 100%;
         }
+
         @font-face {
             font-family: 'Titillium Web';
             font-style: normal;
             font-weight: 300;
             src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
         }
+
+        .pic{
+            width: 55px;
+            position: relative;
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+            font-size:20px;
+            margin-left: 2.5px;
+        }
+
 
     </style>
 
@@ -135,6 +147,18 @@
 
 <nav class="main-menu">
             <ul>
+
+
+            <li class="navlg">
+                    <a href="index.php">
+                        <i class="pic x "><img src="logo2.png" class="pic x" alt=""></i>
+                        <span class="nav-text">
+                          OFPPT Cardsess
+                        </span>
+                    </a>
+                  
+                </li>
+
                 <li>
                     <a href="index.php">
                         <i class="fa fa-home fa-2x"></i>
