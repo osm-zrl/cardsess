@@ -89,7 +89,11 @@ $total_students = $count_row['total_students'];
                 <input type="text" placeholder="Search..." class="search-input">
                 <button type="submit" class="search-button"><i class="fa-solid fa-search"></i></button>
             </div>
+            <div class="d-flex gap-3">
                 <a href="#" onclick="togglecard()" id="addstudentbtn">Add Student</a>
+                <a href="#" onclick="togglescancard()" id="scanstudentbtn">scan Student</a>
+            </div>
+                
         </div>
         <div class="filter">
             <select name="gender" id="gender">
@@ -180,14 +184,17 @@ $total_students = $count_row['total_students'];
                 </div>
             </form>
         </div>
+        <div id="scanstudent" style="width: 300px; height:300px; d-flex justify-content-center align-items-center" class="form hidden">
+            <div>
+                <p>testing</p>
+            </div>
+        </div>
     </main>
     <?php require('footer.php') ?>
 </body>
 </html>
 
-<style>
-
-</style>
+<script src='js/student.js'></script>
 
 <script>
 // filter function
