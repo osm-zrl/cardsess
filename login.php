@@ -1,3 +1,42 @@
+<?php
+
+$servername = "localhost:3030"; 
+$username = 'root';
+$password = ""; 
+$dbname = 'atdc'; 
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Échec de la connexion à la base de données: " . $conn->connect_error);
+}
+
+if(isset($_POST['username']) && isset($_POST['password'])){
+    $usernameInput = $_POST['user'];
+    $passwordInput = $_POST['pw'];
+
+    // hada 3la 8bel sql injection (khouk professionell)
+    $usernameInput = $conn->real_escape_string($usernameInput);
+    $passwordInput = $conn->real_escape_string($passwordInput);
+
+    $sql = "SELECT * FROM admin WHERE username = '$usernameInput' AND password = '$passwordInput'";
+
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        header("Location: index.php");
+        exit();
+    } else {
+        $errorMessage = "Nom d'utilisateur ou mot de passe incorrect";
+    }
+}
+
+// Fermer la connexion à la base de données
+$conn->close();
+?>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,10 +141,10 @@
   <div class="card">
     <img src="logo2.png" alt="Logo">
     <form>
-      <input type="text" name="username" placeholder="Nom d'utilisateur" required>
+      <input type="text" name="user" placeholder="Nom d'utilisateur" required>
       <br>
       <div class="input-container">
-        <input type="password" name="password" id="password" placeholder="Mot de passe" required>
+        <input type="password" name="pw" id="password" placeholder="Mot de passe" required>
         <span class="password-toggle" onclick="togglePassword()"><i class="far fa-eye" style="font-size: 14px;"></i></span>
       </div>
       <br>
