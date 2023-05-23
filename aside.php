@@ -149,13 +149,12 @@
             <ul>
 
 
-            <li class="navlg">
-                    <a href="index.php">
-                        <i class="pic x "><img src="logo2.png" class="pic x" alt=""></i>
-                        <span class="nav-text">
-                          OFPPT Cardsess
+                <li class="navlg">
+                    
+                        <i class="pic x "><img src="img/Logo_ofppt.png" class="pic x" alt=""></i>
+                        <span class="nav-text fw-bold">
+                            CardSESS
                         </span>
-                    </a>
                   
                 </li>
 

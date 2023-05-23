@@ -119,7 +119,7 @@ $total_students = $count_row['total_students'];
                     <th scope="col">Age</th>
                     <th scope="col">gender</th>
                     <th scope="col">Classe</th>
-                    <th scope="col">Edit</th>
+                    <th scope="col">view</th>
                 </tr>
             </thead>
             <tbody id="table-body">
@@ -185,8 +185,18 @@ $total_students = $count_row['total_students'];
             </form>
         </div>
         <div id="scanstudent" style="width: 300px; height:300px; d-flex justify-content-center align-items-center" class="form hidden">
-            <div>
-                <p>testing</p>
+            <div class="blocktitle d-flex justify-content-end">
+                <i class="fa-solid fa-xmark " onclick="togglescancard()"></i>
+            </div>
+            <div  style="height: 80%;" class="d-flex justify-content-center align-items-center">
+                <section id="cardScanLoader" class="dots-container">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </section>
+                <p id="cardScanMsg"></p>
             </div>
         </div>
     </main>

@@ -140,23 +140,11 @@ $total_active_cards = $count_row['total_cards'];
                 <button class="d-block mx-auto my-2" type="button" style="min-width:150px;" id="submitBTN"
                     onclick="submit(this)">SUBMIT</button>
             </div>
-            <!-- 
-                connecting to scanner
-                scanning card
-                checking database
-                writing into card
-                submiting into database
-
-         -->
-
 
 
         </div>
         </div>
-        <!-- Button trigger modal -->
-        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Launch demo modal
-        </button> -->
+
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
