@@ -136,7 +136,7 @@
                     }
                 } else {
                     // output message if no rows are returned
-                    echo "<tr><td colspan='4'>No students found.</td></tr>";
+                    echo "<tr><td colspan='4'>No Entries found.</td></tr>";
                 }
                 $result->free();
                 $conn->close();

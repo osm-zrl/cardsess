@@ -146,7 +146,7 @@ $total_cards = $count_row['total_cards'];
                         }
 
                     }else{
-                        Tbody.innerHTML = `<tr><td colspan='4'>No students found.</td></tr>`
+                        Tbody.innerHTML = `<tr><td colspan='4'>No Entries found.</td></tr>`
                     }
 
 

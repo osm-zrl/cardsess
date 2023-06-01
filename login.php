@@ -12,8 +12,8 @@ if ($conn->connect_error) {
 }
 
 if(isset($_POST['username']) && isset($_POST['password'])){
-    $usernameInput = $_POST['user'];
-    $passwordInput = $_POST['pw'];
+    $usernameInput = $_POST['username'];
+    $passwordInput = $_POST['password'];
 
     // hada 3la 8bel sql injection (khouk professionell)
     $usernameInput = $conn->real_escape_string($usernameInput);
@@ -139,12 +139,12 @@ $conn->close();
 </head>
 <body>
   <div class="card">
-    <img src="logo2.png" alt="Logo">
-    <form>
-      <input type="text" name="user" placeholder="Nom d'utilisateur" required>
+    <img src="img/Logo_ofppt.png" alt="Logo">
+    <form method='POST'>
+      <input type="text" name="username" placeholder="Nom d'utilisateur" required>
       <br>
       <div class="input-container">
-        <input type="password" name="pw" id="password" placeholder="Mot de passe" required>
+        <input type="password" name="password" id="password" placeholder="Mot de passe" required>
         <span class="password-toggle" onclick="togglePassword()"><i class="far fa-eye" style="font-size: 14px;"></i></span>
       </div>
       <br>
