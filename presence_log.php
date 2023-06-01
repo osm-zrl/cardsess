@@ -79,11 +79,7 @@
             </div>
         </div>
 
-        <!-- <div class="link-div">
-            <div class="search-box" id="search-box">
-                <input type="text" placeholder="Search..." class="search-input">
-                <button type="submit" class="search-button"><i class="fa-solid fa-search"></i></button>
-            </div> -->
+       
         </div>
         <div class="filter">
             <select name="gender" id="gender">

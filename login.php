@@ -1,13 +1,9 @@
 <?php
 
 session_start();
-$servername = "localhost:3030"; 
-$username = 'root';
-$password = ""; 
-$dbname = 'atdc'; 
+require('dbconfig.php');
 $errorMessage = '';
 
-$conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
     die("Échec de la connexion à la base de données: " . $conn->connect_error);
