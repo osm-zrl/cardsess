@@ -1,9 +1,11 @@
 <?php
 
+session_start();
 $servername = "localhost:3030"; 
 $username = 'root';
 $password = ""; 
 $dbname = 'atdc'; 
+$errorMessage = '';
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -13,7 +15,7 @@ if ($conn->connect_error) {
 
 if(isset($_POST['username']) && isset($_POST['password'])){
     $usernameInput = $_POST['username'];
-    $passwordInput = $_POST['password'];
+    $passwordInput = md5($_POST['password']);
 
     // hada 3la 8bel sql injection (khouk professionell)
     $usernameInput = $conn->real_escape_string($usernameInput);
@@ -24,10 +26,12 @@ if(isset($_POST['username']) && isset($_POST['password'])){
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
+        $_SESSION['username'] = $usernameInput;
+        
         header("Location: index.php");
         exit();
     } else {
-        $errorMessage = "Nom d'utilisateur ou mot de passe incorrect";
+        $errorMessage = "<p>Nom d'utilisateur ou mot de passe incorrect</p>";
     }
 }
 
@@ -141,6 +145,7 @@ $conn->close();
   <div class="card">
     <img src="img/Logo_ofppt.png" alt="Logo">
     <form method='POST'>
+      <?php echo $errorMessage; ?>
       <input type="text" name="username" placeholder="Nom d'utilisateur" required>
       <br>
       <div class="input-container">

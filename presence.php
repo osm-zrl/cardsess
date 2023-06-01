@@ -176,9 +176,7 @@ $total_cards = $count_row['total_cards'];
                     },
                     success: function (data) {
 
-                        /* if (Tbody.innerHTML == `<tr><td colspan='4'>No students found.</td></tr>`) {
-                                Tbody.innerHTML = '';
-                        } */
+                        
                         $.each(data, function (index, row) {
                             if (row.scan_id > lastID) {
                                 let ro = `<tr>

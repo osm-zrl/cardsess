@@ -1,4 +1,15 @@
-
+<?php
+session_start();
+if (!isset($_SESSION['username'])){
+    header('location:login.php');
+    die('pas connecter!');
+}
+if (isset($_GET['log_out'])){
+    session_destroy();
+    session_abort();
+    header('location:login.php');
+}
+?>
     
 <style>
         .fa-2x {
@@ -46,7 +57,7 @@
             width:250px;
         }
 
-        .main-menu li>a {
+        .main-menu li>a ,.outBtn{
             position:relative;
             display:table;
             border-collapse:collapse;
@@ -106,12 +117,12 @@
             user-select:none;
         }
 
-        nav ul,nav li {
+        nav ul,nav li ,.outBtn{
             outline:0;
             margin:10px 0;
             padding:0;
         }
-        .main-menu li:hover>a,nav.main-menu li.active>a,.dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus,.dropdown-menu>.active>a,.dropdown-menu>.active>a:hover,.dropdown-menu>.active>a:focus,.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,.dashboard-page nav.dashboard-menu ul li.active a {
+        .outBtn, .main-menu li:hover>a,nav.main-menu li.active>a,.dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus,.dropdown-menu>.active>a,.dropdown-menu>.active>a:hover,.dropdown-menu>.active>a:focus,.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,.dashboard-page nav.dashboard-menu ul li.active a {
             color:#153090;
             background-color:#e1e7ff;
         }
@@ -147,8 +158,6 @@
 
 <nav class="main-menu">
             <ul>
-
-
                 <li class="navlg">
                     
                         <i class="pic x "><img src="img/Logo_ofppt.png" class="pic x" alt=""></i>
@@ -210,12 +219,15 @@
 
             <ul class="logout">
                 <li>
-                   <a href="#">
-                        <i class="fa fa-power-off fa-2x"></i>
-                        <span class="nav-text">
-                            Logout
-                        </span>
-                    </a>
+                    <form method="GET" class="d-flex flex-row">
+                        <button class="outBtn" name="log_out" style="border:none; background:transparent; padding:0;">
+                            <i class="fa fa-power-off fa-2x"></i>
+                            <span class="nav-text">
+                                Logout
+                            </span>
+                        </button>
+                    </form>
+                   
                 </li>  
             </ul>
         </nav>

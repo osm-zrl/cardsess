@@ -71,8 +71,7 @@
     </aside>
 
     <main>
-        <?php require('head.php');
-        require('dbconfig.php');?>
+        
         <div class="top-main">
             <div class="title">
                 <h2>Presence Log</h2>
