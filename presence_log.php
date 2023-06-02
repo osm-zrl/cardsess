@@ -46,6 +46,21 @@
                 <option value="3">13:30 - 15:00</option>
                 <option value="4">15:00 - 18:30</option>
             </select>
+            <select name="class" id="class">
+                <option selected value="">Select Class</option>
+
+                <?php
+                    $sql = "SELECT * FROM classe";
+                    $res = $conn->query($sql);
+                    while($row = $res->fetch_assoc()){
+
+                ?>
+                    <option value="<?php echo $row['class_id'] ?>"><?php echo $row['name'].' '.$row['level'] ?></option>
+                
+
+                <?php 
+                }?>
+            </select>
 
         </div>
 
@@ -56,6 +71,7 @@
                     <th class="col">CARD'S ID</th>
                     <th class="col">STUDENT'S ID</th>
                     <th class="col">STUDENT'S FULLNAME</th>
+                    <th class="col">CLASS NAME</th>
                     <th class="col">TIMESTAMP</th>
                 </tr>
             </thead>
@@ -71,11 +87,10 @@
             url: 'php/search_log.php',
             type: 'POST',
             success: function (response) {
-                console.log(response.length)
                 if (response.length == 0) {
                     $('#logTable').html(
                         `<tr>
-                                <td colspan="4">No Log Data Detected</td>
+                                <td colspan="5">No Log Data Detected</td>
                                 </tr>`
                     )
                 } else {
@@ -86,6 +101,7 @@
                                 <td>`+ e.card_id + `</td>
                                 <td>`+ e.student_id + `</td>
                                 <td>`+ e.nom_complete + `</td>
+                                <td>`+ e.class_name + `</td>
                                 <td>`+ e.scan_time + `</td>
                             </tr>`
                         )
@@ -98,21 +114,25 @@
         });
         $(document).ready(function () {
 
-            $('#date, #time').on('change', function () {
+            $('#date, #time, #class').on('change', function () {
                 var dateFilter = $('#date').val();
                 var timeFilter = $('#time').val();
-                
+                var classFilter = $('#class').val();
+                console.log(classFilter)
                 $.ajax({
                     url: 'php/search_log.php',
                     type: 'POST',
-                    data: { 'date': dateFilter, 'time': timeFilter },
+                    data: { 'date': dateFilter,
+                         'time': timeFilter ,
+                         'class':classFilter
+                        },
                     success: function (response) {
                         console.log(response)
                         
                         if (response.length == 0) {
                             $('#logTable').html(
                                 `<tr>
-                                <td colspan="4">No Log Data Detected</td>
+                                <td colspan="5">No Log Data Detected</td>
                                 </tr>`
                             )
                         } else {
@@ -123,6 +143,7 @@
                                 <td>`+ e.card_id + `</td>
                                 <td>`+ e.student_id + `</td>
                                 <td>`+ e.nom_complete + `</td>
+                                <td>`+ e.class_name + `</td>
                                 <td>`+ e.scan_time + `</td>
                             </tr>`
                                 )
