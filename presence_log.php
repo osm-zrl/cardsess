@@ -40,7 +40,7 @@
         <div class="filter">
             <input type='date' id="date" name="date">
             <select name="time" id="time">
-                <option selected value="">Select Period</option>
+                <option selected value="">Select Time Period</option>
                 <option value="1">08:30 - 11:00</option>
                 <option value="2">11:00 - 13:30</option>
                 <option value="3">13:30 - 15:00</option>
