@@ -12,15 +12,15 @@ function togglecard() {
         black_layer.style.right = '-100vw'
     }
 }
-function resetcard() {
-    let resetcard = document.getElementById('resetcard');
-    if (resetcard.classList.contains('hidden')) {
-        resetcard.classList.remove('hidden');
-        resetcard.classList.add('displayed');
+function toggleDisablecard() {
+    let disableCard = document.getElementById('disableCard');
+    if (disableCard.classList.contains('hidden')) {
+        disableCard.classList.remove('hidden');
+        disableCard.classList.add('displayed');
         black_layer.style.right = 0
     } else {
-        resetcard.classList.add('hidden');
-        resetcard.classList.remove('displayed');
+        disableCard.classList.add('hidden');
+        disableCard.classList.remove('displayed');
         black_layer.style.right = '-100vw'
     }
 }

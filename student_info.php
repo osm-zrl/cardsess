@@ -10,7 +10,6 @@ if (isset($_GET['student_id'])){
         header('location:students.php');
     }
     // retrieve the current student information from the database
-    // assuming you have a database connection already established
     $query = "SELECT student.*,concat(classe.name,' ',classe.level) as class_name FROM student JOIN classe ON student.class_id=classe.class_id WHERE student_id = '$student_id'";
     $result = $conn->query($query);
     if ($result->num_rows == 0){
@@ -27,7 +26,7 @@ if (isset($_GET['student_id'])){
 
 
 
-    mysqli_close($conn);
+    $conn->close();
 
     ?>
     <!DOCTYPE html>

@@ -341,31 +341,37 @@ function DelDBCard(card_id){
 function desCard(cell){
     let C_id = cell.getAttribute('card_id')
     let C_stat = cell.getAttribute('card_stat')
+    toggleDisablecard()
+    $('#disableBtn').attr("card_id",C_id)
+    $('#disableBtn').attr("card_stat",C_stat)
     
-    if (confirm('Are you sure you want to desactivate/activate card number: '+C_id+'?')){
-        $.ajax({
-            url: 'php/desAndActCard.php',
-            type: 'POST',
-            crossDomain: true,
-            data: {
-                'card_id': C_id,
-                'card_stat':C_stat,
-                
-            },
-            success: function (response) {
-                console.log(response)
-                getAllCardsTable()
-                getCardsState()
-            },
-            error: function (xhr, status, error) {
-                console.log('Error:', error);
-            }
-            
-        });
-    }
-    
-
 }
+function disableCard(Btn){
+    let C_id = Btn.getAttribute('card_id')
+    let C_stat = Btn.getAttribute('card_stat')
+    $.ajax({
+        url: 'php/desAndActCard.php',
+        type: 'POST',
+        crossDomain: true,
+        data: {
+            'card_id': C_id,
+            'card_stat':C_stat,
+            
+        },
+        success: function (response) {
+            console.log(response)
+            getAllCardsTable()
+            getCardsState()
+        },
+        error: function (xhr, status, error) {
+            console.log('Error:', error);
+        },complete:function(){
+            toggleDisablecard()
+        }
+        
+    });
+}
+
 function getAllCardsTable(){
     $.ajax({
         url:'php/getCardsTable.php',
