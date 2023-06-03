@@ -138,10 +138,9 @@ $total_students = $count_row['total_students'];
                         }
                     } else {
                         // output message if no rows are returned
-                        echo "No students found.";
+                        echo "<tr><td colspan='6'>No students found</td></tr>";
                     }            
-                    $result->close();
-                    $conn->close();    
+                        
                 ?>
             </tbody>
         </table>
@@ -171,12 +170,19 @@ $total_students = $count_row['total_students'];
                     </div>
                     <div class="col">
                         <select name="classe" id="classe">
-                            <option value="">Select Student Group</option>
-                            <option value="1">Développement digital 101</option>
-                            <option value="2">Développement digital 102</option>
-                            <option value="3">gestion entreprise 101</option>
-                            <option value="4">gestion entreprise 102</option>
-                            <option value="5">infographie</option>
+                            <option  value="">Select Student Group</option>
+                            <?php
+                            $sql = "SELECT * FROM classe";
+                            $res = $conn->query($sql);
+                            while($row = $res->fetch_assoc()){
+
+                           
+                            ?>
+                            
+                                <option value="<?php echo $row['class_id']?>"><?php echo $row['name'].' '.$row['level'] ?></option>
+                            
+                            <?php
+                             }?>
                         </select>
                     </div>
                     <button type="submit">Add Student</button>
@@ -230,3 +236,7 @@ $(document).ready(function() {
   });
 });
 </script>
+
+<?php
+$result->close();
+$conn->close();?>
