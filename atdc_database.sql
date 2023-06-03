@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2023 at 12:09 AM
+-- Generation Time: Jun 04, 2023 at 12:00 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,6 +20,24 @@ SET time_zone = "+00:00";
 --
 -- Database: `atdc`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `username` varchar(50) NOT NULL,
+  `password` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`username`, `password`) VALUES
+('admin', '21232f297a57a5a743894a0e4a801fc3');
 
 -- --------------------------------------------------------
 
@@ -52,9 +70,7 @@ CREATE TABLE `classe` (
 INSERT INTO `classe` (`class_id`, `name`, `level`) VALUES
 (1, 'Developpement digital', '101'),
 (2, 'Developpement digital', '102'),
-(3, 'gestion etreprise', '101'),
-(4, 'gestion entreprise', '102'),
-(5, 'infograpie', '101');
+(4, 'gestion entreprise', '102');
 
 -- --------------------------------------------------------
 
@@ -84,20 +100,35 @@ CREATE TABLE `student` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `student`
+--
+
+INSERT INTO `student` (`student_id`, `first_name`, `last_name`, `birthday`, `gender`, `class_id`) VALUES
+('2003040500221', 'oussama', 'zriouile', '2003-04-05', 'male', 1);
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`username`);
 
 --
 -- Indexes for table `cards`
 --
 ALTER TABLE `cards`
-  ADD PRIMARY KEY (`card_id`);
+  ADD PRIMARY KEY (`card_id`),
+  ADD KEY `cards_ibfk_1` (`student_id`);
 
 --
 -- Indexes for table `classe`
 --
 ALTER TABLE `classe`
-  ADD PRIMARY KEY (`class_id`);
+  ADD PRIMARY KEY (`class_id`),
+  ADD UNIQUE KEY `name` (`name`,`level`);
 
 --
 -- Indexes for table `log_history`
@@ -118,26 +149,38 @@ ALTER TABLE `student`
 --
 
 --
+-- AUTO_INCREMENT for table `classe`
+--
+ALTER TABLE `classe`
+  MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
 -- AUTO_INCREMENT for table `log_history`
 --
 ALTER TABLE `log_history`
-  MODIFY `scan_id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `scan_id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=243;
 
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `cards`
+--
+ALTER TABLE `cards`
+  ADD CONSTRAINT `cards_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`) ON UPDATE CASCADE;
+
+--
 -- Constraints for table `log_history`
 --
 ALTER TABLE `log_history`
-  ADD CONSTRAINT `log_history_ibfk_1` FOREIGN KEY (`card_id`) REFERENCES `cards` (`card_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `log_history_ibfk_1` FOREIGN KEY (`card_id`) REFERENCES `cards` (`card_id`);
 
 --
 -- Constraints for table `student`
 --
 ALTER TABLE `student`
-  ADD CONSTRAINT `fk_class` FOREIGN KEY (`class_id`) REFERENCES `classe` (`class_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `student_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `classe` (`class_id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
