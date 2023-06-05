@@ -1,11 +1,26 @@
 var ctx1 = document.getElementById('Chart1').getContext('2d');
+let cardStat = []
+$.ajax({
+  url:'php/getCardsState.php',
+  type: 'GET',
+  dataType: 'json',
+  success: function (data) {
+      cardStat.push(data[1]['total_active_cards'])
+      cardStat.push(data[2]['total_desactive_cards'])
+      
+  },
+  error: function (jqXHR, textStatus, errorThrown) {
+      console.log('Error: ' + textStatus);
+  }
+
+})
 var myChart1 = new Chart(ctx1, {
   type: 'bar',
   data: {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['active', 'desactive'],
     datasets: [{
       label: 'Entries',
-      data: [120, 200, 150, 300, 250, 180, 220],
+      data: cardStat,
       backgroundColor: [
         '#354EA1'
       ],
@@ -17,13 +32,13 @@ var myChart1 = new Chart(ctx1, {
   },
   options: {
     scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
+        y: {
+            ticks: {
+                precision: 0
+            }
         }
-      }]
     }
-  }
+}
 });
 
 
@@ -74,9 +89,10 @@ var myChart3 = new Chart(ctx3, {
   },
   options: {
     scales: {
-      yAxes: [{
+      yAxis: [{
         ticks: {
-          beginAtZero: true
+          beginAtZero: true,
+          
         }
       }]
     }

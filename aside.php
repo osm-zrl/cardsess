@@ -161,8 +161,9 @@ if (isset($_GET['log_out'])){
                 <li class="navlg">
                     
                         <i class="pic x "><img src="img/Logo_ofppt.png" class="pic x" alt=""></i>
+                        
                         <span class="nav-text fw-bold">
-                            CardSESS
+                        &nbsp;CardSESS
                         </span>
                   
                 </li>
