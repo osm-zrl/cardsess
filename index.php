@@ -89,6 +89,8 @@ $total_cards = $count_row['total_cards'];
 		    </div>
 	    </div>
     </main>
+    
     <?php require('footer.php') ?>
+    <script src="js/chart.js"></script>
 </body>
 </html>

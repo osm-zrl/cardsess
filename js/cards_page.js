@@ -417,7 +417,6 @@ function getCardsState(){
         type: 'GET',
         dataType: 'json',
         success: function (data) {
-            console.log(data)
             
             document.getElementById('total_cards').innerText = data[0]['total_cards'] 
             document.getElementById('total_active_cards').innerText = data[1]['total_active_cards']
