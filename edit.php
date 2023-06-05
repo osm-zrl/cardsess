@@ -49,7 +49,7 @@ if (isset($_GET['student_id'])) {
         mysqli_stmt_close($stmt);
     }
 
-    mysqli_close($conn);
+    
 
     ?>
     <!DOCTYPE html>
@@ -57,7 +57,7 @@ if (isset($_GET['student_id'])) {
 
     <head>
         <?php require('head.php'); ?>
-        <title>main</title>
+        <title>Edit Student Info</title>
         <link rel="stylesheet" href="css/student.css">
     </head>
 
@@ -108,28 +108,27 @@ if (isset($_GET['student_id'])) {
                     <div class="col">
                         <h4>Student Class :</h4>
                         <select name="class_id" id="class_id">
-                            <option value="">Select Student Group</option>
-                            <option value="1" <?php if ($class_id == 1)
-                                echo ' selected'; ?>>Développement digital 101
-                            </option>
-                            <option value="2" <?php if ($class_id == 2)
-                                echo ' selected'; ?>>Développement digital 102
-                            </option>
-                            <option value="3" <?php if ($class_id == 3)
-                                echo ' selected'; ?>>gestion entreprise 101</option>
-                            <option value="4" <?php if ($class_id == 4)
-                                echo ' selected'; ?>>gestion entreprise 102</option>
-                            <option value="5" <?php if ($class_id == 5)
-                                echo ' selected'; ?>>infographie</option>
+                            
+                            <?php 
+                                $sql = "SELECT * FROM classe;";
+                                $res = $conn->query($sql);
+                                while($row = $res->fetch_assoc()){
+
+                                
+                            ?>
+                                <option value="<?php echo $row['class_id']?>" <?php if ($class_id == 1)
+                                    echo ' selected'; ?>><?php echo $row['name']." ".$row['level']?>
+                                </option>
+                                
+                            <?php
+                            }?>
                         </select>
                     </div>
                 </div>
                 <button type="submit">Update Student</button>
             </form>
         </main>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="js/chart.js"></script>
-        <script src="js/script.js"></script>
+        <?php require('footer.php'); ?>
     </body>
 
     </html>
