@@ -379,24 +379,28 @@ function getAllCardsTable(){
         dataType: 'json',
         success: function (data) {
             Tbody.innerHTML = ''
-            for (let i = 0; i < data.length; i++) {
-                switch(data[i].card_active){
-                    case '0':
-                        card_state = `<i onclick="desCard(this)" style="cursor:pointer; color: #97111e;" card_stat="`+data[i].card_active+`" card_id="`+data[i].card_id+`" class="fa-solid fa-circle-xmark" ></i>`
-                        break
-                    case '1':
-                        card_state = `<i onclick="desCard(this)" style="cursor:pointer; color: #1a7020;" card_stat="`+data[i].card_active+`" card_id="`+data[i].card_id+`" class="fa-solid fa-circle-check" ></i>`
-                        break
-                    default:
-                        card_state = 'default'
+            if (data.length != 0){
+                for (let i = 0; i < data.length; i++) {
+                    switch(data[i].card_active){
+                        case '0':
+                            card_state = `<i onclick="desCard(this)" style="cursor:pointer; color: #97111e;" card_stat="`+data[i].card_active+`" card_id="`+data[i].card_id+`" class="fa-solid fa-circle-xmark" ></i>`
+                            break
+                        case '1':
+                            card_state = `<i onclick="desCard(this)" style="cursor:pointer; color: #1a7020;" card_stat="`+data[i].card_active+`" card_id="`+data[i].card_id+`" class="fa-solid fa-circle-check" ></i>`
+                            break
+                        default:
+                            card_state = 'default'
+                    }
+                    let row = `<tr>
+                    <td>` + data[i].card_id + `</td>
+                    <td>` + data[i].student_id + `</td>
+                    <td>` + card_state + `</td>
+                    </tr>`;
+                    Tbody.innerHTML += row; // Add the new row to the top of the table
+    
                 }
-                let row = `<tr>
-                <td>` + data[i].card_id + `</td>
-                <td>` + data[i].student_id + `</td>
-                <td>` + card_state + `</td>
-                </tr>`;
-                Tbody.innerHTML += row; // Add the new row to the top of the table
-
+            }else{
+                Tbody.innerHTML = `<tr><td colspan="3">No cards found</td></tr>`
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {

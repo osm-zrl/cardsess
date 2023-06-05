@@ -4,7 +4,7 @@ var myChart1 = new Chart(ctx1, {
   data: {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [{
-      label: 'Sales',
+      label: 'Entries',
       data: [120, 200, 150, 300, 250, 180, 220],
       backgroundColor: [
         '#354EA1'
@@ -33,7 +33,7 @@ var myChart2 = new Chart(ctx2, {
   data: {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [{
-      label: 'Sales',
+      label: 'Entries',
       data: [120, 200, 150, 300, 250, 180, 220],
       backgroundColor: [
         '#354EA1'
@@ -61,7 +61,7 @@ var myChart3 = new Chart(ctx3, {
   data: {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [{
-      label: 'Sales',
+      label: 'Entries',
       data: [120, 200, 150, 300, 250, 180, 220],
       backgroundColor: [
         '#354EA1','#99A5CB','#414D75' 
