@@ -54,7 +54,7 @@ function readcard() {
                         },
                         success:function (response) {
                             if (response.trim()=='true'){
-                                window.location.assign('edit_student.php?student_id='+cardStudID)
+                                window.location.assign('student_info.php?student_id='+cardStudID)
                             }else{
                                 cardScanMsg.innerHTML =('unknown student ID')
                             }

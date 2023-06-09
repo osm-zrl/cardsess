@@ -116,7 +116,7 @@ if (isset($_GET['student_id'])) {
 
                                 
                             ?>
-                                <option value="<?php echo $row['class_id']?>" <?php if ($class_id == 1)
+                                <option value="<?php echo $row['class_id']?>" <?php if ($class_id == $row['class_id'])
                                     echo ' selected'; ?>><?php echo $row['name']." ".$row['level']?>
                                 </option>
                                 

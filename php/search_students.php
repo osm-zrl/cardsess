@@ -8,7 +8,7 @@ $classFilter = $_POST['classFilter'];
 $sql = "SELECT s.student_id, s.first_name, s.last_name, s.birthday, s.gender, c.name AS class_name, c.level
         FROM student s
         JOIN classe c ON s.class_id = c.class_id
-        WHERE (s.student_id LIKE '%$searchValue%' OR s.first_name LIKE '%$searchValue%' OR c.name LIKE '%$searchValue%' OR s.gender LIKE '%$searchValue%') ";
+        WHERE (s.student_id LIKE '%$searchValue%' OR s.first_name LIKE '%$searchValue%' OR s.last_name LIKE '%$searchValue%') ";
 
 if (!empty($genderFilter)) {
   $sql .= "AND s.gender = '$genderFilter' ";

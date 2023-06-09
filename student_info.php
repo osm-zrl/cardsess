@@ -140,9 +140,9 @@ if (isset($_GET['student_id'])) {
             let Tbody = document.getElementById("cardsTableB")
             function getAllCardsTable() {
                 $.ajax({
-                    url: 'php/getCardsTable.php',
-                    type: 'GET',
-                    dataType: 'json',
+                    url: 'php/getCardsTableSpecified.php',
+                    type: 'POST',
+                    data:{'id':<?php echo $student_id?>},
                     success: function (data) {
                         Tbody.innerHTML = ''
                         if (data.length != 0) {
