@@ -216,6 +216,17 @@ if (isset($_GET['log_out'])){
                    
                 </li>
                 
+                <li class="has-subnav">
+                    <a href="class.php">
+                        <i class="fa fa-solid fa-landmark"></i>
+                       
+                        <span class="nav-text">
+                            classrooms
+                        </span>
+                    </a>
+                   
+                </li>
+                
             </ul>
 
             <ul class="logout">

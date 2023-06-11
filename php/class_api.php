@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     } else {
         echo 'missing parametre';
     }
-} elseif ($_SERVER['REQUEST_METHOD'] == 'PUT') {
+} /* elseif ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $input = file_get_contents("php://input");
     parse_str($input, $_PUT);
 
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     } else {
         echo 'missing parametre';
     }
-} elseif ($_SERVER['REQUEST_METHOD'] == 'DELET') {
+} */ elseif ($_SERVER['REQUEST_METHOD'] == 'DELET') {
     $input = file_get_contents("php://input");
     parse_str($input, $_DELET);
     if (isset($_DELET['class_id'])) {
@@ -74,12 +74,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $sql = "SELECT * FROM classe where class_id='$class_id'";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
-                $sql = "DELETE FROM classe WHERE class_id='$class_id'";
-                if ($conn->query($sql)) {
-                    echo "true";
-                } else {
-                    echo "false";
+                
+                
+
+                $sql="SELECT * from student where class_id='$class_id'";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0){
+                    echo 'warning: can\'t delete classroom with existing student!';
+                }else{
+                    $sql = "DELETE FROM classe WHERE class_id='$class_id'";
+                    if ($conn->query($sql)) {
+                        echo "classroom deleted successfully!";
+                    } else {
+                        echo "failed to delet classroom";
+                    }
                 }
+                
+                
             } else {
                 echo "unknown class id";
             }
