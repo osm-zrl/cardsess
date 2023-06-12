@@ -38,6 +38,7 @@
 
         </div>
         <div class="filter">
+            <input type="text" placeholder="Search..." class="search-input">
             <input type='date' id="date" name="date">
             <select name="time" id="time">
                 <option selected value="">Select Time Period</option>

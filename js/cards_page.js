@@ -346,6 +346,8 @@ function desCard(cell){
     $('#disableBtn').attr("card_stat",C_stat)
     
 }
+
+
 function disableCard(Btn){
     let C_id = Btn.getAttribute('card_id')
     let C_stat = Btn.getAttribute('card_stat')

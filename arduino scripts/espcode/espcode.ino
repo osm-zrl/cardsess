@@ -138,17 +138,10 @@ void senddata(String Card_uid,String CEF) {
     //script kaychof wach data tssiftat nit ola kayn chi mochkil f server, ila makan 7ta mochkil katch3l lbola dial esp8266 
     if (httpCode == -1) {
       Serial.println("Server not responding");
-      digitalWrite(D3,HIGH);  
-      delay(500);
-      digitalWrite(D3,LOW);
-      digitalWrite(D3,HIGH);  
-      delay(500);
-      digitalWrite(D3,LOW);
-      digitalWrite(D3,HIGH);  
-      delay(500);
-      digitalWrite(D3,LOW);
+      digitalWrite(D0,HIGH);  
   
     } else {
+      digitalWrite(D0,LOW);
       String response = http.getString();
       http.end();
       // script kayjib kolchi lidar lih echo f fichier getUID.php kansstkhdmo bach n confirmer lcondition dial request
