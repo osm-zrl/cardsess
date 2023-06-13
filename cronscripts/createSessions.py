@@ -1,8 +1,3 @@
-#!C:\Users\lenovo\AppData\Local\Programs\Python\Python311\python.exe
-""" print("Content-Type: text/html\n\n")
-import sys
-sys.path.append("C:\\Users\\lenovo\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages")
- """
 import mysql.connector
 import datetime
 

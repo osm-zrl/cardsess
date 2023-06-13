@@ -1,11 +1,12 @@
 <?php
 require('../dbconfig.php');
 $data = [];
-if (isset($_POST['date']) || isset($_POST['time']) || isset($_POST['class'])){
+if (isset($_POST['date']) || isset($_POST['time']) || isset($_POST['class'])|| isset($_POST['student_id'])){
     $date = trim($_POST['date']);
     $time = trim($_POST['time']);
     $class = trim($_POST['class']);
-    
+    $student_id = trim($_POST['student_id']);
+
     if ($date != '' && $time != '' && $class!=''){
         $date = date($date);
         switch ($time) {
@@ -29,7 +30,7 @@ if (isset($_POST['date']) || isset($_POST['time']) || isset($_POST['class'])){
             default:
                 break;
         }
-        $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete,concat(classe.name,' ',classe.level) as class_name, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN classe ON student.class_id = classe.class_id WHERE DATE(log_history.scan_time)='$date' AND TIME(log_history.scan_time)>='$startTime' AND TIME(log_history.scan_time)<'$endTime' AND student.class_id = '$class' ORDER BY log_history.scan_time DESC;";
+        $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete,concat(classe.name,' ',classe.level) as class_name, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN classe ON student.class_id = classe.class_id WHERE DATE(log_history.scan_time)='$date' AND TIME(log_history.scan_time)>='$startTime' AND TIME(log_history.scan_time)<'$endTime' AND student.class_id = '$class' AND student.student_id LIKE '$student_id%' ORDER BY log_history.scan_time DESC;";
         $res = $conn->query($sql);
         while($row = $res->fetch_assoc()){
             $data[]=$row;
@@ -38,7 +39,7 @@ if (isset($_POST['date']) || isset($_POST['time']) || isset($_POST['class'])){
 
     }elseif ($date != '' && $time == '' && $class=='') {
         $date = date($date);
-        $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete,concat(classe.name,' ',classe.level) as class_name, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN classe ON student.class_id = classe.class_id WHERE DATE(log_history.scan_time)='$date' ORDER BY log_history.scan_time DESC;";
+        $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete,concat(classe.name,' ',classe.level) as class_name, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN classe ON student.class_id = classe.class_id WHERE DATE(log_history.scan_time)='$date' AND student.student_id LIKE '$student_id%' ORDER BY log_history.scan_time DESC;";
         $res = $conn->query($sql);
         while($row = $res->fetch_assoc()){
             $data[]=$row;
@@ -67,7 +68,7 @@ if (isset($_POST['date']) || isset($_POST['time']) || isset($_POST['class'])){
             default:
                 break;
         }
-        $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete,concat(classe.name,' ',classe.level) as class_name, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN classe ON student.class_id = classe.class_id WHERE TIME(log_history.scan_time)>='$startTime' AND TIME(log_history.scan_time)<'$endTime' ORDER BY log_history.scan_time DESC;";
+        $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete,concat(classe.name,' ',classe.level) as class_name, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN classe ON student.class_id = classe.class_id WHERE TIME(log_history.scan_time)>='$startTime' AND TIME(log_history.scan_time)<'$endTime' AND student.student_id LIKE '$student_id%' ORDER BY log_history.scan_time DESC;";
         $res = $conn->query($sql);
         
         while($row = $res->fetch_assoc()){
@@ -75,7 +76,7 @@ if (isset($_POST['date']) || isset($_POST['time']) || isset($_POST['class'])){
         }
 
     }elseif($date == '' && $time == '' && $class!=''){
-        $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete,concat(classe.name,' ',classe.level) as class_name, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN classe ON student.class_id = classe.class_id WHERE student.class_id = '$class' ORDER BY log_history.scan_time DESC;";
+        $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete,concat(classe.name,' ',classe.level) as class_name, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN classe ON student.class_id = classe.class_id WHERE student.class_id = '$class' AND student.student_id LIKE '$student_id%' ORDER BY log_history.scan_time DESC;";
         $res = $conn->query($sql);
         while($row = $res->fetch_assoc()){
             $data[]=$row;
@@ -103,7 +104,7 @@ if (isset($_POST['date']) || isset($_POST['time']) || isset($_POST['class'])){
             default:
                 break;
         }
-        $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete,concat(classe.name,' ',classe.level) as class_name, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN classe ON student.class_id = classe.class_id WHERE DATE(log_history.scan_time)='$date' AND TIME(log_history.scan_time)>='$startTime' AND TIME(log_history.scan_time)<'$endTime' ORDER BY log_history.scan_time DESC;";
+        $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete,concat(classe.name,' ',classe.level) as class_name, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN classe ON student.class_id = classe.class_id WHERE DATE(log_history.scan_time)='$date' AND TIME(log_history.scan_time)>='$startTime' AND TIME(log_history.scan_time)<'$endTime' AND student.student_id LIKE '$student_id%' ORDER BY log_history.scan_time DESC;";
         $res = $conn->query($sql);
         while($row = $res->fetch_assoc()){
             $data[]=$row;
@@ -131,7 +132,7 @@ if (isset($_POST['date']) || isset($_POST['time']) || isset($_POST['class'])){
             default:
                 break;
         }
-        $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete,concat(classe.name,' ',classe.level) as class_name, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN classe ON student.class_id = classe.class_id WHERE TIME(log_history.scan_time)>='$startTime' AND TIME(log_history.scan_time)<'$endTime' AND student.class_id = '$class' ORDER BY log_history.scan_time DESC;";
+        $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete,concat(classe.name,' ',classe.level) as class_name, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN classe ON student.class_id = classe.class_id WHERE TIME(log_history.scan_time)>='$startTime' AND TIME(log_history.scan_time)<'$endTime' AND student.class_id = '$class' AND student.student_id LIKE '$student_id%' ORDER BY log_history.scan_time DESC;";
         $res = $conn->query($sql);
         while($row = $res->fetch_assoc()){
             $data[]=$row;
@@ -139,21 +140,21 @@ if (isset($_POST['date']) || isset($_POST['time']) || isset($_POST['class'])){
     
     }elseif($date != '' && $time == '' && $class!=''){
         $date = date($date);
-        $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete,concat(classe.name,' ',classe.level) as class_name, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN classe ON student.class_id = classe.class_id WHERE DATE(log_history.scan_time)='$date' AND student.class_id='$class' ORDER BY log_history.scan_time DESC;";
+        $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete,concat(classe.name,' ',classe.level) as class_name, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN classe ON student.class_id = classe.class_id WHERE DATE(log_history.scan_time)='$date' AND student.class_id='$class' AND student.student_id LIKE '$student_id%' ORDER BY log_history.scan_time DESC;";
         $res = $conn->query($sql);
         while($row = $res->fetch_assoc()){
             $data[]=$row;
         }
 
     }elseif($date == '' && $time == '' && $class==''){
-        $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete,concat(classe.name,' ',classe.level) as class_name, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN classe ON student.class_id = classe.class_id ORDER BY log_history.scan_time DESC;";
+        $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete,concat(classe.name,' ',classe.level) as class_name, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN classe ON student.class_id = classe.class_id AND student.student_id LIKE '$student_id%' ORDER BY log_history.scan_time DESC;";
         $res = $conn->query($sql);
         while($row = $res->fetch_assoc()){
             $data[]=$row;
         }
     }
 }else{
-    $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete,concat(classe.name,' ',classe.level) as class_name, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN classe ON student.class_id = classe.class_id ORDER BY log_history.scan_time DESC;";
+    $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete,concat(classe.name,' ',classe.level) as class_name, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN classe ON student.class_id = classe.class_id  ORDER BY log_history.scan_time DESC;";
     $res = $conn->query($sql);
     while($row = $res->fetch_assoc()){
         $data[]=$row;
