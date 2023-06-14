@@ -24,3 +24,4 @@ function toggleDisablecard() {
         black_layer.style.right = '-100vw'
     }
 }
+   
