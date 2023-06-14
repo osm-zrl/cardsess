@@ -26,6 +26,7 @@ MFRC522 mfrc522(SS_PIN, RST_PIN);  // Create an instance of the MFRC522 library
 const char* ssid = "DESKTOP-6JT69FG";       // Replace with your network name (SSID)
 const char* password = "hellohello1234";    // Replace with your network password
 const char* url = "http://192.168.137.1/atdc/getUID.php";
+const char* token="32uYqg8ev9EZ2VtGkeS0FYagZGq7qUFSEs9LodE04SVw9s3djeacVoMe1opkuY9Z";
 
 String OldCarduid = "";
 unsigned long previousMillis = 0;
@@ -120,9 +121,6 @@ void loop() {
     if( Card_uid == OldCarduid ){
       return;
     }
-    else{
-      OldCarduid = Card_uid;
-    }
     senddata(Card_uid,result);
   }
 }
@@ -134,7 +132,7 @@ void senddata(String Card_uid,String CEF) {
     WiFiClient client;
     http.begin(client, url);
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
-    int httpCode = http.POST("cardUID=" + String(Card_uid)+"&CEF=" + String(CEF));
+    int httpCode = http.POST("cardUID=" + String(Card_uid)+"&CEF=" + String(CEF)+"&token="+token);
     //script kaychof wach data tssiftat nit ola kayn chi mochkil f server, ila makan 7ta mochkil katch3l lbola dial esp8266 
     if (httpCode == -1) {
       Serial.println("Server not responding");
@@ -147,6 +145,7 @@ void senddata(String Card_uid,String CEF) {
       // script kayjib kolchi lidar lih echo f fichier getUID.php kansstkhdmo bach n confirmer lcondition dial request
       Serial.println("HTTP response code: " + String(httpCode));
       if(response == "0"){
+        OldCarduid = Card_uid;
         digitalWrite(D2,HIGH);
         delay(1000);
         digitalWrite(D2,LOW);
