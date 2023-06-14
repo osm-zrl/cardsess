@@ -35,11 +35,7 @@ $total_cards = $count_row['total_cards'];
     ?>
 
     <title>classrooms</title>
-    <style>
-        #classTableBody tr{
-            cursor:pointer;
-        }
-    </style>
+    
 </head>
 
 <body>
@@ -87,7 +83,7 @@ $total_cards = $count_row['total_cards'];
             <a onclick="toggleAddClass()" href="#">Add Class</a>
         </div>
 
-        <table class="table table-hover">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th class="col">Branche</th>
@@ -154,16 +150,16 @@ $total_cards = $count_row['total_cards'];
                             `<tr class_id="`+ el.class_id + `">
                             <td>`+ el.name + `</td>
                             <td>`+ el.level + `</td>
-                            <td>
-                                <button class="btn" id="`+ el.class_id + `" onclick="deleteColumn(this)" ><i style="font-size:1em!important;" class="fa-solid text-secondary fa-trash"></i></button>
+                            <td><button class="btn" onclick="openTimeTables(`+ el.class_id + `)"><i style="font-size:1.2em!important;" class="fa-solid text-success fa-calendar-week"></i></button>
+                                <button class="btn" id="`+ el.class_id + `" onclick="deleteColumn(this)" ><i style="font-size:1.2em!important;" class="fa-solid text-danger fa-trash"></i></button>
                             </td>
                             `
                         )
                     })
-                    $('#classTableBody tr').click(function(){
+                    /* $('#classTableBody tr').click(function(){
                         
                         window.open('classroom_time_table.php?class_id='+$(this).attr('class_id'),'_self')
-                    })
+                    }) */
                 },
                 error: function (err) {
                     console.log(err);
@@ -171,6 +167,9 @@ $total_cards = $count_row['total_cards'];
             });
         }
 
+        function openTimeTables(id){
+            window.open('classroom_time_table.php?class_id='+id,'_self')
+        }
         function deleteColumn(btn) {
             let classId = btn.getAttribute('id')
             $.ajax({

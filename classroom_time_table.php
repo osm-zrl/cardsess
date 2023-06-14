@@ -20,7 +20,9 @@ if (isset($_GET['class_id'])) {
 <head>
     <?php require('head.php');
     require('dbconfig.php'); ?>
-    <title><?= $row['name'] . ' ' . $row['level'] ?> time table</title>
+    <title>
+        <?= $row['name'] . ' ' . $row['level'] ?> time table
+    </title>
 
 </head>
 
@@ -39,12 +41,12 @@ if (isset($_GET['class_id'])) {
                     <i class="fa-solid fa-clock"></i>
                     <div class="card-text">
                         <span id="weekly_seasons">
-                            
+
                         </span>
                         <p>Weekly Sessions</p>
                     </div>
                 </div>
-                
+
             </div>
         </div>
         </div>
@@ -53,7 +55,7 @@ if (isset($_GET['class_id'])) {
             <a href="#" id="addstudentbtn">Modify weekly Sessions</a>
         </div>
         <!-- table -->
-        
+
         <table class="table table-bordered shadow">
             <thead>
                 <tr>
@@ -113,6 +115,27 @@ if (isset($_GET['class_id'])) {
 
             </tbody>
         </table>
+        <table class="table table-bordered shadow">
+            <thead>
+                <tr>
+                    <th colspan="4">today's open sessions</th>
+                </tr>
+                <tr class="bg-dark text-light">
+                    <th class="col"> 08:30 - 10:50 </th>
+                    <th class="col"> 10:50 - 13:30 </th>
+                    <th class="col"> 13-30 - 15:50 </th>
+                    <th class="col"> 16:10 - 18:30 </th>
+                </tr>
+            </thead>
+            <tbody id="Tbody2" style="height:40px;">
+                <tr id="todaysSessions">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
 
         <script>
 
@@ -131,7 +154,7 @@ if (isset($_GET['class_id'])) {
                             let days_schedule = []
 
                             response.forEach(function (el) {
-                                
+
                                 if (el.day == i) {
                                     let columns = $('.day_table')[i].children
 
@@ -183,8 +206,74 @@ if (isset($_GET['class_id'])) {
                     }
                 })
             }
+            function formatTime(date) {
+                var hours = date.getHours().toString().padStart(2, '0');
+                var minutes = date.getMinutes().toString().padStart(2, '0');
+                var seconds = date.getSeconds().toString().padStart(2, '0');
+                return hours + ':' + minutes + ':' + seconds;
+            }
+
+            function getTodaysSessions() {
+                $.ajax({
+                    url: "php/sessions_api.php",
+                    data: {
+                        'class_id': <?= class_id ?>,
+                        'date': '2023-06-14',
+                    },
+                    beforeSend: function () {
+
+                    }, success: function (response) {
+                        let columns = $('#todaysSessions td')
+
+                        response.forEach(function (el) {
+
+                            let date_start = new Date(el.date_start)
+                            el.time_start = formatTime(date_start)
+
+                            let date_end = new Date(el.date_end)
+                            el.time_end = formatTime(date_end)
+
+                            if (el.time_start == '08:30:00') {
+                                if (el.time_end == '10:50:00') {
+                                    columns[0].innerHTML = el.nom_session
+                                } else if (el.time_end == '13:30:00') {
+                                    columns[0].innerHTML = el.nom_session
+                                    columns[0].setAttribute('colspan', 2)
+                                    columns[1].remove()
+                                }
+                            } else if (el.time_start == '10:50:00') {
+                                columns[1].innerHTML = el.nom_session
+                            } else if (el.time_start == '13:30:00' && columns.length == 3) {
+                                if (el.time_end == '15:50:00') {
+                                    columns[1].innerHTML = el.nom_session
+                                } else if (el.time_end == '18:30:00') {
+                                    columns[1].innerHTML = el.nom_session
+                                    columns[1].setAttribute('colspan', 2)
+                                    columns[2].remove()
+                                }
+                            } else if (el.time_start == '13:30:00' && columns.length == 4) {
+                                if (el.time_end == '15:50:00') {
+                                    columns[2].innerHTML = el.nom_session
+                                } else if (el.time_end == '18:30:00') {
+                                    columns[2].innerHTML = el.nom_session
+                                    columns[2].setAttribute('colspan', 2)
+                                    columns[3].remove()
+                                }
+                            } else if (el.time_start == '15:50:00') {
+                                columns[columns.length - 1].innerHTML = el.nom_session
+                            }
+                        })
+
+                    }, error: function (err) {
+                        console.log(err)
+                    }, complete: function () {
+
+                    }
+                })
+            }
             $(document).ready(function () {
                 getTimeTables()
+                getTodaysSessions()
             })
         </script>
     </main>
