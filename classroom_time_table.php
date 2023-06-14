@@ -52,7 +52,7 @@ if (isset($_GET['class_id'])) {
         </div>
 
         <div class="link-div">
-            <a href="#" id="addstudentbtn">Modify weekly Sessions</a>
+            <a href="#" id="modifyWS">Modify weekly Sessions</a>
         </div>
         <!-- table -->
 
@@ -115,6 +115,7 @@ if (isset($_GET['class_id'])) {
 
             </tbody>
         </table>
+
         <table class="table table-bordered shadow">
             <thead>
                 <tr>
