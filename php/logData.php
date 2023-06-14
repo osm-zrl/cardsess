@@ -5,7 +5,7 @@ if ($conn->connect_errno) {
 }
 if (isset($_GET['lastID'])) {
     $lastID = $_GET['lastID'];
-    $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id WHERE scan_id > $lastID";
+    $sql = "SELECT log_history.scan_id,sessions.nom_session,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN `sessions` ON log_history.session_id=sessions.id_session WHERE scan_id > $lastID";
 
     $result = $conn->query($sql);
     $data = array();
@@ -15,9 +15,8 @@ if (isset($_GET['lastID'])) {
     unset($lastID);
 } else {
 
-/* SELECT log_history.scan_id,sessions.nom_session,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN sessions ON log_history.session_id=sessions.id_session ORDER BY log_history.scan_time DESC; */
     
-    $sql = "SELECT log_history.scan_id,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id ORDER BY log_history.scan_time DESC;";
+    $sql = "SELECT log_history.scan_id,sessions.nom_session,log_history.card_id, cards.student_id, concat(student.first_name,' ',student.last_name) as nom_complete, log_history.scan_time FROM log_history JOIN cards ON cards.card_id = log_history.card_id JOIN student ON cards.student_id = student.student_id JOIN `sessions` ON log_history.session_id=sessions.id_session ORDER BY log_history.scan_time DESC;";
     $result = $conn->query($sql);
     
     $data = array();
