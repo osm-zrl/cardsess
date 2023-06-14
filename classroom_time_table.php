@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php 
-    if(isset($_GET['class_id'])){
-        define('class_id',$_GET['class_id']);
-    }else{
+<?php
+require('dbconfig.php');
+if (isset($_GET['class_id'])) {
+    define('class_id', $_GET['class_id']);
+    $sql = "SELECT * FROM classe WHERE class_id=" . class_id;
+    $result = $conn->query($sql);
+    if ($result->num_rows == 0) {
         header('location:class.php');
     }
+    $row = $result->fetch_assoc();
+
+} else {
+    header('location:class.php');
+}
 ?>
+
 <head>
     <?php require('head.php');
     require('dbconfig.php'); ?>
-    <title>main</title>
+    <title><?= $row['name'] . ' ' . $row['level'] ?> time table</title>
+
 </head>
 
 <body>
@@ -20,16 +30,35 @@
     <main>
         <div class="top-main">
             <div class="title">
-                <h2>devojj digiir 101</h2>
+                <h2>
+                    <?= $row['name'] . ' ' . $row['level'] ?>
+                </h2>
             </div>
-
+            <div class="cards d-flex justify-content-end">
+                <div class="card" style="max-width:300px;">
+                    <i class="fa-solid fa-clock"></i>
+                    <div class="card-text">
+                        <span id="weekly_seasons">
+                            
+                        </span>
+                        <p>Weekly Sessions</p>
+                    </div>
+                </div>
+                
+            </div>
         </div>
+        </div>
+
         <div class="link-div">
-            <a href="#" id="addstudentbtn">Modify</a>
+            <a href="#" id="addstudentbtn">Modify weekly Sessions</a>
         </div>
         <!-- table -->
-        <table class="table table-bordered">
+        
+        <table class="table table-bordered shadow">
             <thead>
+                <tr>
+                    <th colspan="5">weekly sessions</th>
+                </tr>
                 <tr class="bg-dark text-light">
                     <th class="col">days</th>
                     <th class="col"> 08:30 - 10:50 </th>
@@ -86,62 +115,64 @@
         </table>
 
         <script>
-            
+
 
             function getTimeTables() {
                 $.ajax({
                     url: "php/time_table_api.php",
                     data: {
-                        'class_id': 1,
+                        'class_id': <?= class_id ?>,
                     },
                     beforeSend: function () {
 
                     }, success: function (response) {
+                        $('#weekly_seasons').html(response.length)
                         for (let i = 0; i < 6; i++) {
                             let days_schedule = []
 
                             response.forEach(function (el) {
+                                
                                 if (el.day == i) {
                                     let columns = $('.day_table')[i].children
 
                                     if (el.time_start == '08:30:00') {
                                         if (el.time_end == '10:50:00') {
-                                            columns[1].innerHTML=el.module
+                                            columns[1].innerHTML = el.module
                                         } else if (el.time_end == '13:30:00') {
-                                            columns[1].innerHTML=el.module
-                                            columns[1].setAttribute('colspan',2)
+                                            columns[1].innerHTML = el.module
+                                            columns[1].setAttribute('colspan', 2)
                                             columns[2].remove()
                                         }
-                                    }else if(el.time_start == '10:50:00'){
-                                        columns[2].innerHTML=el.module
-                                    }else if(el.time_start == '13:30:00' && columns.length==4){
+                                    } else if (el.time_start == '10:50:00') {
+                                        columns[2].innerHTML = el.module
+                                    } else if (el.time_start == '13:30:00' && columns.length == 4) {
                                         if (el.time_end == '15:50:00') {
-                                            columns[2].innerHTML=el.module
+                                            columns[2].innerHTML = el.module
                                         } else if (el.time_end == '18:30:00') {
-                                            columns[2].innerHTML=el.module
-                                            columns[2].setAttribute('colspan',2)
+                                            columns[2].innerHTML = el.module
+                                            columns[2].setAttribute('colspan', 2)
                                             columns[3].remove()
                                         }
-                                    }else if(el.time_start == '13:30:00' && columns.length==5){
+                                    } else if (el.time_start == '13:30:00' && columns.length == 5) {
                                         if (el.time_end == '15:50:00') {
-                                            columns[3].innerHTML=el.module
+                                            columns[3].innerHTML = el.module
                                         } else if (el.time_end == '18:30:00') {
-                                            columns[3].innerHTML=el.module
-                                            columns[3].setAttribute('colspan',2)
+                                            columns[3].innerHTML = el.module
+                                            columns[3].setAttribute('colspan', 2)
                                             columns[4].remove()
                                         }
-                                    }else if(el.time_start == '15:50:00'){
-                                        columns[columns.length -1].innerHTML=el.module
+                                    } else if (el.time_start == '15:50:00') {
+                                        columns[columns.length - 1].innerHTML = el.module
                                     }
                                 }
                             })
-                            
+
 
 
                         }
                         $('.day_table').each(function () {
-                            let element=this
-                            if(element.children.length == 1){
+                            let element = this
+                            if (element.children.length == 1) {
                                 $(element).append(`<td></td><td></td><td></td><td></td>`)
                             }
                         })

@@ -6,7 +6,7 @@
         $('main').children().each(function(){
             $(this).hide()
         })
-        $('main').children().not('.fade').each(function(){
+        $('main').children().not('.fade').not('script').each(function(){
             $(this).fadeIn('slow')
         })
     })

@@ -35,6 +35,11 @@ $total_cards = $count_row['total_cards'];
     ?>
 
     <title>classrooms</title>
+    <style>
+        #classTableBody tr{
+            cursor:pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -82,7 +87,7 @@ $total_cards = $count_row['total_cards'];
             <a onclick="toggleAddClass()" href="#">Add Class</a>
         </div>
 
-        <table>
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th class="col">Branche</th>
@@ -146,7 +151,7 @@ $total_cards = $count_row['total_cards'];
                     tableBody.empty(); // Efface les données existantes du tableau
                     data.forEach(function (el) {
                         tableBody.append(
-                            `<tr>
+                            `<tr class_id="`+ el.class_id + `">
                             <td>`+ el.name + `</td>
                             <td>`+ el.level + `</td>
                             <td>
@@ -154,6 +159,10 @@ $total_cards = $count_row['total_cards'];
                             </td>
                             `
                         )
+                    })
+                    $('#classTableBody tr').click(function(){
+                        
+                        window.open('classroom_time_table.php?class_id='+$(this).attr('class_id'),'_self')
                     })
                 },
                 error: function (err) {
