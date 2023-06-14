@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php 
+    if(isset($_GET['class_id'])){
+        define('class_id',$_GET['class_id']);
+    }else{
+        header('location:class.php');
+    }
+?>
 <head>
     <?php require('head.php');
     require('dbconfig.php'); ?>
@@ -34,21 +41,45 @@
             <tbody id="Tbody">
                 <tr class="day_table">
                     <td>Monday</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 <tr class="day_table">
                     <td>Tuesday</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 <tr class="day_table">
                     <td>Wednesday</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 <tr class="day_table">
                     <td>Thursday</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 <tr class="day_table">
                     <td>Friday</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 <tr class="day_table">
                     <td>Saturday</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
 
             </tbody>
@@ -66,33 +97,41 @@
                     beforeSend: function () {
 
                     }, success: function (response) {
-                        console.log(response)
                         for (let i = 0; i < 6; i++) {
-                            console.log('i = ' + i)
                             let days_schedule = []
 
                             response.forEach(function (el) {
                                 if (el.day == i) {
+                                    let columns = $('.day_table')[i].children
+
                                     if (el.time_start == '08:30:00') {
                                         if (el.time_end == '10:50:00') {
-                                            $($('.day_table')[i]).append(`<td time_start="` + el.time_start + `">` + el.module + `</td>`)
-
-
+                                            columns[1].innerHTML=el.module
                                         } else if (el.time_end == '13:30:00') {
-                                            $($('.day_table')[i]).append(`<td time_start="` + el.time_start + `" colspan='2'>` + el.module + `</td>`)
+                                            columns[1].innerHTML=el.module
+                                            columns[1].setAttribute('colspan',2)
+                                            columns[2].remove()
                                         }
-                                    } else if (el.time_start == '10:50:00') {
-                                        $($('.day_table')[i]).append(`<td time_start="` + el.time_start + `">` + el.module + `</td>`)
-                                    } else if (el.time_start == '13:30:00') {
+                                    }else if(el.time_start == '10:50:00'){
+                                        columns[2].innerHTML=el.module
+                                    }else if(el.time_start == '13:30:00' && columns.length==4){
                                         if (el.time_end == '15:50:00') {
-                                            $($('.day_table')[i]).append(`<td time_start="` + el.time_start + `">` + el.module + `</td>`)
-
-
+                                            columns[2].innerHTML=el.module
                                         } else if (el.time_end == '18:30:00') {
-                                            $($('.day_table')[i]).append(`<td time_start="` + el.time_start + `" colspan='2'>` + el.module + `</td>`)
+                                            columns[2].innerHTML=el.module
+                                            columns[2].setAttribute('colspan',2)
+                                            columns[3].remove()
                                         }
-                                    } else if (el.time_start == '15:50:00') {
-                                        $($('.day_table')[i]).append(`<td time_start="` + el.time_start + `">` + el.module + `</td>`)
+                                    }else if(el.time_start == '13:30:00' && columns.length==5){
+                                        if (el.time_end == '15:50:00') {
+                                            columns[3].innerHTML=el.module
+                                        } else if (el.time_end == '18:30:00') {
+                                            columns[3].innerHTML=el.module
+                                            columns[3].setAttribute('colspan',2)
+                                            columns[4].remove()
+                                        }
+                                    }else if(el.time_start == '15:50:00'){
+                                        columns[columns.length -1].innerHTML=el.module
                                     }
                                 }
                             })
