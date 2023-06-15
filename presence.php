@@ -87,7 +87,7 @@ $total_cards = $count_row['total_cards'];
 
                 <tr>
                     <th class="col"> Card ID </th>
-                    <th class="col" style="text-transform:uppercase;"> session name </th>
+                    <th class="col" style="text-transform:uppercase;"> class name </th>
                     <th class="col"> student ID </th>
 
                     <th class="col"> Full Name </th>
@@ -130,7 +130,7 @@ $total_cards = $count_row['total_cards'];
                             for (let i = 0; i < data.length; i++) {
                                 let row = `<tr>
                                 <td>` + data[i].card_id + `</td>
-                            <td>` + data[i].nom_session + `</td>
+                            <td>` + data[i].class_name + `</td>
                             <td>` + data[i].student_id + `</td>
                             <td>` + data[i].nom_complete + `</td>
                             <td>` + data[i].scan_time + `</td>
@@ -181,7 +181,7 @@ $total_cards = $count_row['total_cards'];
                             if (row.scan_id > lastID) {
                                 let ro = `<tr>
                                 <td>` + row.card_id + `</td>
-                        <td>` + row.nom_session + `</td>
+                        <td>` + row.class_name + `</td>
                         <td>` + row.student_id + `</td>
                         <td>` + row.nom_complete + `</td>
                         <td>` + row.scan_time + `</td>
