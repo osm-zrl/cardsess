@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD']=='GET'){
     $msg =[];
     if (isset($_POST['class_id']) && isset($_POST['t_module']) && isset($_POST['t_start'])&&isset($_POST['t_end']) && isset($_POST['weekday'])){
         $class_id=trim($_POST['class_id']);
-        $title=trim($_POST['t_module']);
+        $title=strtolower(trim($_POST['t_module']));
         $t_start =trim($_POST['t_start']);
         $t_end = trim($_POST['t_end']);
         $weekday = trim($_POST['weekday']);

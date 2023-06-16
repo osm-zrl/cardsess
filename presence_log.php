@@ -176,7 +176,7 @@
                     <th class="col">CARD'S ID</th>
                     <th class="col">STUDENT'S ID</th>
                     <th class="col">STUDENT'S FULLNAME</th>
-                    <th class="col">CLASS NAME</th>
+                    <th class="col">CLASSROOM</th>
                     <th class="col">TIMESTAMP</th>
                 </tr>
             </thead>

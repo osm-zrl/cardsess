@@ -23,6 +23,9 @@ if (isset($_GET['class_id'])) {
     <title>
         <?= $row['name'] . ' ' . $row['level'] ?> time table
     </title>
+    <style>
+        
+    </style>
 
 </head>
 
@@ -70,7 +73,7 @@ if (isset($_GET['class_id'])) {
                     <th class="col"> 15:50 - 18:30 </th>
                 </tr>
             </thead>
-            <tbody id="Tbody">
+            <tbody id="Tbody" class="text-capitalize">
                 <tr class="day_table">
                     <td>Monday</td>
                     <td></td>
@@ -129,7 +132,7 @@ if (isset($_GET['class_id'])) {
                     <th class="col"> 15:50 - 18:30 </th>
                 </tr>
             </thead>
-            <tbody id="Tbody2" style="height:40px;">
+            <tbody id="Tbody2" class="text-capitalize" style="height:40px;">
                 <tr id="todaysSessions">
                     <td></td>
                     <td></td>

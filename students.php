@@ -57,8 +57,8 @@ $total_students = $count_row['total_students'];
         <div id="black_layer" style="right:-100vw;"></div>
         <div class="top-main">
             <div class="title">
-                <h2>Students Place</h2>
-                <h5>Here you can see all the students</h5>
+                <h2>Students</h2>
+                <h5>Manage Students</h5>
             </div>
             <div class="cards">
                 <div class="card">

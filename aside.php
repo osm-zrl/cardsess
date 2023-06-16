@@ -206,6 +206,15 @@ if (isset($_GET['log_out'])){
                     
                 </li>
                 <li class="has-subnav">
+                    <a href="sessions.php">
+                        <i class="fa fa-solid fa-clock"></i>
+                        <span class="nav-text">
+                            Manage Sessions
+                        </span>
+                    </a>
+                    
+                </li>
+                <li class="has-subnav">
                     <a href="presence.php">
                         <i class="fa fa-solid fa-wifi"></i>
                         <span class="nav-text">

@@ -87,7 +87,7 @@ $total_cards = $count_row['total_cards'];
 
                 <tr>
                     <th class="col"> Card ID </th>
-                    <th class="col" style="text-transform:uppercase;"> class name </th>
+                    <th class="col" style="text-transform:uppercase;"> classroom</th>
                     <th class="col"> student ID </th>
 
                     <th class="col"> Full Name </th>
@@ -146,7 +146,7 @@ $total_cards = $count_row['total_cards'];
                         }
 
                     }else{
-                        Tbody.innerHTML = `<tr><td colspan='4'>No Entries found.</td></tr>`
+                        Tbody.innerHTML = `<tr><td colspan='5'>No Entries found.</td></tr>`
                     }
 
 
