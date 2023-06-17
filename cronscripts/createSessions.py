@@ -33,7 +33,7 @@ class session:
         
 
 #making the request to get time tables of week day
-sql_statement =f"SELECT * FROM `time_table` where day={weekday};"
+sql_statement =f"SELECT * FROM `time_table` where day={weekday+1};"
 cursor = db.cursor()
 cursor.execute(sql_statement)
 time_tables = cursor.fetchall()

@@ -7,6 +7,7 @@ if (isset($_GET['student_id'])) {
     // retrieve the student_id parameter from the URL
     $student_id = trim($_GET['student_id']);
     if ($student_id == '') {
+        
         header('location:students.php');
     }
     // retrieve the current student information from the database

@@ -114,10 +114,11 @@
     <?php require('aside.php'); ?>
     <!-- top main title + statics cards  -->
     <main>
+        
         <div class="top-main">
             <div class="title">
-                <h2>Sessions</h2>
-                <h5>view and manage sessions</h5>
+                <h2>Upcoming Sessions</h2>
+                <h5 class="text-capitalize">manage Upcoming sessions</h5>
             </div>
             <!-- <div class="cards">
                 <div class="card">
@@ -144,15 +145,15 @@
             </div> -->
         </div>
         <div class="link-div">
-            <a href="#" class="d-block mx-auto me-0" onclick="toggleAddStudent()" id="addstudentbtn">Add Student</a>
+            <a href="#" class="d-block mx-auto me-0" onclick="" id="">schedule a session</a>
         </div>
+        
         <div class="filter">
-            <!-- <input type="search" placeholder="Search ..." id="session_name" class="search-input">
             <select name="class_id" id="class">
                 <option selected value="">Select Class</option>
 
                 <?php
-                /*
+                
                 $sql = "SELECT * FROM classe";
                 $res = $conn->query($sql);
                 while ($row = $res->fetch_assoc()) {
@@ -162,13 +163,8 @@
 
 
                     <?php
-                } */?>
+                }?>
             </select>
-            <select name="time" id="time_period">
-                <option selected value="">Select Time Period</option>
-                <option value="1">08:30 - 13:30</option>
-                <option value="2">13:30 - 18:30</option>
-            </select> -->
             <div class="loader">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
@@ -188,9 +184,7 @@
         <!-- table -->
         <table class="table table-bordered table-striped shadow">
             <thead>
-                <tr>
-                    <th colspan="4">Upcoming Sessions</th>
-                </tr>
+                id="myDate"
                 <tr class="bg-dark text-light">
                     <th class="col"> nom session </th>
                     <th class="col"> classroom name </th>
@@ -203,24 +197,7 @@
 
             </tbody>
         </table>
-        <table class="table table-bordered table-hover shadow">
-            <thead>
-                <tr>
-                    <th colspan="5">Previous Sessions</th>
-                </tr>
-                <tr class="bg-dark text-light">
-                    <th class="col"> nom session </th>
-                    <th class="col"> classroom name </th>
-                    <th class="col"> date started </th>
-                    <th class="col"> date end </th>
-                    <th class="col"> Presence Rate </th>
-
-                </tr>
-            </thead>
-            <tbody id="prev_Tbody">
-
-            </tbody>
-        </table>
+        
 
         <!-- forms -->
         <div id="addstudent" class="form hidden">
@@ -262,33 +239,36 @@
         </div>
     </main>
     <script>
-        $('searchBtn').click(function () {
-
-        })
+        
 
 
         $(document).ready(function () {
+            $('#class').on('change',function(){
+                getAllSessions()
+            })
+
+
             function getAllSessions() {
                 $('.loader').hide()
+                var classFilter = $('#class').val();
                 $.ajax({
-                    url: 'php/sessions_api.php',
+                    url: 'php/upsessions_api.php',
                     method: 'GET',
-                    data: {},
+                    data: {
+                        "class_id":classFilter,
+                    },
                     beforeSend: function () {
                         $('.loader').show()
                     },
                     success: function (response) {
                         console.log(response)
                         $('#upcoming_Tbody').html('')
-                        $('#prev_Tbody').html('')
-                        let Upcoming = response[0];
-                        let prev = response[1];
-                        if (Upcoming.length == 0) {
+                        if (response.length == 0) {
                             $('#upcoming_Tbody').html(
                                 `<tr><td colspan="4"> No Upcoming Sessions</td></tr>`
                             )
                         } else {
-                            Upcoming.forEach(el => {
+                            response.forEach(el => {
                                 $('#upcoming_Tbody').append(
                                     `
                                     <tr id_session="`+ el.id_session + `">
@@ -303,26 +283,7 @@
                             })
                         }
 
-                        if (prev.length == 0) {
-                            $('#prev_Tbody').html(
-                                `<tr><td colspan="5"> No Previous Sessions</td></tr>`
-                            )
-                        } else {
-                            prev.forEach(el => {
-                                $('#prev_Tbody').append(
-                                    `
-                                    <tr id_session="`+ el.id_session + `">
-                                    <td>`+ el.nom_session + `</td>
-                                    <td>`+ el.class_name + `</td>
-                                    <td>`+ el.date_start + `</td>
-                                    <td>`+ el.date_end + `</td>
-                                    <td>`+ el.present + `</td>
-                                    
-                                    </tr>
-                                    `
-                                )
-                            })
-                        }
+                        
 
                     }, error: function (err) {
                         console.log(err)

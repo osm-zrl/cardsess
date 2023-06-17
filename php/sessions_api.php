@@ -23,13 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $upcoming[]=$row;
         }
         
-/* SELECT sessions.*,concat(classe.name,' ',classe.level) as class_name,count(log_history.session_id)  FROM sessions JOIN classe ON sessions.class_id = classe.class_id JOIN log_history ON log_history.session_id=sessions.id_session WHERE DATE(date_start)=CURDATE() AND TIME(date_start)<=CURTIME() order by date_start */
         $sql = 
         "SELECT sessions.*, CONCAT(classe.name, ' ', classe.level) AS class_name, COUNT(log_history.session_id) AS present
         FROM sessions
         LEFT JOIN log_history ON sessions.id_session = log_history.session_id
         JOIN classe ON sessions.class_id = classe.class_id
-        WHERE DATE(sessions.date_start) = CURDATE() AND TIME(sessions.date_start) <= CURTIME()
+        WHERE DATE(sessions.date_start) = CURDATE() AND TIME(sessions.date_end) <= CURTIME()
         GROUP BY sessions.id_session
         ORDER BY sessions.date_start;
          ";
