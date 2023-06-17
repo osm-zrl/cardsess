@@ -264,7 +264,7 @@
                         'class': classFilter,
                     },
                     beforeSend: function () {
-                        //$('.loader').show()
+                        $('.loader').show()
                     },
                     success: function (response) {
                         console.log(response)
@@ -293,8 +293,11 @@
 
                     }, error: function (err) {
                         console.log(err)
+                        $('#prev_Tbody').html(
+                                `<tr><td colspan="5"> failed to load sessions</td></tr>`
+                            )
                     }, complete: function () {
-                        //$('.loader').hide()
+                        $('.loader').hide()
                     }
                 })
             }

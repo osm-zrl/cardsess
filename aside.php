@@ -231,7 +231,7 @@ if (isset($_GET['log_out'])) {
                     </span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item text-center py-2" style="font-size:17px;" href="#">Ongoing sessions</a></li>
+                    <li><a class="dropdown-item text-center py-2" style="font-size:17px;" href="onsessions.php">Ongoing sessions</a></li>
                     <li><a class="dropdown-item text-center py-2" style="font-size:17px;" href="upsessions.php">Upcoming sessions</a></li>
                     <li><a class="dropdown-item text-center py-2" style="font-size:17px;" href="presessions.php">Previous sessions</a></li>
                 </ul>

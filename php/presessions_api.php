@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 FROM sessions
                 LEFT JOIN log_history ON sessions.id_session = log_history.session_id
                 JOIN classe ON sessions.class_id = classe.class_id
-                WHERE DATE(sessions.date_start) = '$date' AND TIME(sessions.date_end) <= CURTIME()
+                WHERE DATE(sessions.date_start) = '$date' AND sessions.date_start<CURRENT_TIMESTAMP AND TIME(sessions.date_end) <= CURTIME()
                 GROUP BY sessions.id_session
                 ORDER BY sessions.date_start;
             ";
