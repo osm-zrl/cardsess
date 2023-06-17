@@ -4,7 +4,7 @@
 <head>
     <?php require('head.php');
     require('dbconfig.php'); ?>
-    <title>Manage Sessions</title>
+    <title>Upcoming Sessions</title>
     <style>
         .filter {
             display: flex;

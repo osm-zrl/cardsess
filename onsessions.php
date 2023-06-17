@@ -4,7 +4,7 @@
 <head>
     <?php require('head.php');
     require('dbconfig.php'); ?>
-    <title>Manage Sessions</title>
+    <title>Ongoing Sessions</title>
     <style>
         .filter {
             display: flex;
@@ -117,8 +117,8 @@
 
         <div class="top-main">
             <div class="title">
-                <h2>Sessions history</h2>
-                <h5>manage all previous sessions</h5>
+                <h2>Ongoing Sessions</h2>
+                <h5 class="text-capitalize">manage all ongoing sessions</h5>
             </div>
             <!-- <div class="cards">
                 <div class="card">
