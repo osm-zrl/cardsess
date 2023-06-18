@@ -28,7 +28,7 @@ if ($result->num_rows > 0) {
     echo "<td>" . date_diff(date_create($row["birthday"]), date_create('today'))->y . "</td>";
     echo "<td>" . $row["gender"] . "</td>";
     echo "<td>" . $row["class_name"] . " " . $row["level"] . "</td>";
-    echo "<td><a href='edit_student.php?student_id=" . $row["student_id"] . "'><i class='fa-regular fa-eye'></i></a></td>";
+    echo "<td><a href='student_info.php?student_id=" . $row["student_id"] . "'><i class='fa-regular fa-eye'></i></a></td>";
     echo "</tr>";
   }
 } else {
