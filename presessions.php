@@ -240,20 +240,18 @@
                 </div>
             </form>
         </div>
-    </main>
-    <script>
-        $('searchBtn').click(function () {
-
-        })
-
-
+            <!-- move the chart to the dashboard page (same id !) -->
+            <canvas id="chart"></canvas>
+        </main>
+<script>
         $(document).ready(function () {
-            setMaxDate()
+            setMaxDate();
             $('#date, #class').on('change', function () {
-                getAllSessions()
-            })
+                getAllSessions();
+            });
+
             function getAllSessions() {
-                $('.loader').hide()
+                $('.loader').hide();
                 var dateFilter = $('#date').val();
                 var classFilter = $('#class').val();
                 $.ajax({
@@ -264,54 +262,48 @@
                         'class': classFilter,
                     },
                     beforeSend: function () {
-                        $('.loader').show()
+                        $('.loader').show();
                     },
                     success: function (response) {
-                        console.log(response)
-                        $('#prev_Tbody').html('')
-                        let class_count = response[1]
-                        console.log(class_count)
+                        console.log(response);
+                        $('#prev_Tbody').html('');
+
                         if (response.length == 0) {
                             $('#prev_Tbody').html(
-                                `<tr><td colspan="5"> No Previous Sessions</td></tr>`
-                            )
+                                `<tr><td colspan="5">No Previous Sessions</td></tr>`
+                            );
                         } else {
-                            response[0].forEach(el => {
-                                let students_count
-                                class_count.forEach(i=>{
-                                    if (i.class_id == el.class_id ){
-                                        students_count = i.student_num
-                                        
-                                    }
-
-                                })
+                            response.forEach(el => {
                                 $('#prev_Tbody').append(
                                     `
                                     <tr id_session="`+ el.id_session + `">
-                                    <td>`+ el.nom_session + `</td>
-                                    <td>`+ el.class_name + `</td>
-                                    <td>`+ el.date_start + `</td>
-                                    <td>`+ el.date_end + `</td>
-                                    <td>`+ Math.round(el.present/students_count*100)+'%' + `</td>
-                                    
+                                        <td>`+ el.nom_session + `</td>
+                                        <td>`+ el.class_name + `</td>
+                                        <td>`+ el.date_start + `</td>
+                                        <td>`+ el.date_end + `</td>
+                                        <td>`+ el.present + `</td>
                                     </tr>
                                     `
-                                )
-                            })
-                        }
+                                );
+                            });
 
-                    }, error: function (err) {
-                        console.log(err)
+                            createLineChart(response);
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err);
                         $('#prev_Tbody').html(
-                                `<tr><td colspan="5"> failed to load sessions</td></tr>`
-                            )
-                    }, complete: function () {
-                        $('.loader').hide()
+                            `<tr><td colspan="5">Failed to load sessions</td></tr>`
+                        );
+                    },
+                    complete: function () {
+                        $('.loader').hide();
                     }
-                })
+                });
             }
-            getAllSessions()
-        })
+
+            getAllSessions();
+        });
     </script>
     <script>
         // Get today's date in the format "YYYY-MM-DD"
