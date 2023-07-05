@@ -10,6 +10,14 @@ while ($rows = $res->fetch_assoc()) {
     $tasks[] = $rows;
 }
 print_r($tasks);
+
+$filename = "phpflow_data_export_" . date('Ymd') . ".xls";
+header("Content-Type: application/vnd.ms-excel");
+header("Content-Disposition: attachment; filename=\"$filename\"");
+ExportFile($tasks);
+//$_POST["ExportType"] = '';
+exit();
+
 function ExportFile($records)
 {
     $heading = false;
@@ -24,14 +32,6 @@ function ExportFile($records)
         }
     exit;
 }
-
-$filename = "phpflow_data_export_" . date('Ymd') . ".xls";
-header("Content-Type: application/vnd.ms-excel");
-header("Content-Disposition: attachment; filename=\"$filename\"");
-ExportFile($tasks);
-//$_POST["ExportType"] = '';
-exit();
-
 
 
 

@@ -2,7 +2,10 @@
 <html lang="en">
 
 <head>
-    <?php require('head.php');
+    <?php
+    session_start();
+
+    require('head.php');
     require('dbconfig.php'); ?>
     <title>Presence Log</title>
 

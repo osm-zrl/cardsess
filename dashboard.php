@@ -47,7 +47,7 @@
 
 		    <div class="block" id="chart2">
 			    <h4>Cards Statistics</h4>
-			    <canvas id="Chart2"></canvas>
+                <canvas id="chart"></canvas>
 		    </div>
 	    </div>
         <div class="statistics_2">
@@ -67,3 +67,77 @@
     <script src="js/script.js"></script>
 </body>
 </html>
+
+
+<script>
+$(document).ready(function () {
+    getAllSessions();
+
+    function getAllSessions() {
+        $.ajax({
+            url: 'php/presessions_api.php',
+            method: 'GET',
+            success: function (response) {
+                console.log(response);
+
+                if (response.length === 0) {
+                    console.log('No data available.');
+                    return;
+                }
+
+                createLineChart(response);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    function createLineChart(response) {
+        var labels = [];
+        var presentData = [];
+
+        response.forEach(el => {
+            labels.push(el.date_start);
+            presentData.push(el.present);
+        });
+
+        var ctx = document.getElementById('chart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Present',
+                    data: presentData,
+                    backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                    borderColor: 'rgba(0, 123, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Present'
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                }
+            }
+        });
+    }
+});
+
+</script>
