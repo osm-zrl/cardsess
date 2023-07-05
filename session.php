@@ -142,7 +142,7 @@ if (isset($_GET['session_id'])) {
 
                 
                 ?>
-                    <div class="rounded col-12 bg-light student_card p-4">
+                    <div class="rounded shadow col-12 bg-light student_card p-4">
                         <div class="d-flex fle-row justify-content-around">
                             <p><?= $row['student_id'] ?></p>
                             <p><?= $row['first_name'].' '.$row['last_name']  ?></p>
