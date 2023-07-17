@@ -240,18 +240,20 @@
                 </div>
             </form>
         </div>
-            <!-- move the chart to the dashboard page (same id !) -->
-            <canvas id="chart"></canvas>
-        </main>
-<script>
-        $(document).ready(function () {
-            setMaxDate();
-            $('#date, #class').on('change', function () {
-                getAllSessions();
-            });
+    </main>
+    <script>
+        $('searchBtn').click(function () {
 
+        })
+
+
+        $(document).ready(function () {
+            setMaxDate()
+            $('#date, #class').on('change', function () {
+                getAllSessions()
+            })
             function getAllSessions() {
-                $('.loader').hide();
+                $('.loader').hide()
                 var dateFilter = $('#date').val();
                 var classFilter = $('#class').val();
                 $.ajax({
@@ -262,48 +264,54 @@
                         'class': classFilter,
                     },
                     beforeSend: function () {
-                        $('.loader').show();
+                        $('.loader').show()
                     },
                     success: function (response) {
-                        console.log(response);
-                        $('#prev_Tbody').html('');
-
+                        console.log(response)
+                        $('#prev_Tbody').html('')
+                        let class_count = response[1]
+                        console.log(class_count)
                         if (response.length == 0) {
                             $('#prev_Tbody').html(
-                                `<tr><td colspan="5">No Previous Sessions</td></tr>`
-                            );
+                                `<tr><td colspan="5"> No Previous Sessions</td></tr>`
+                            )
                         } else {
-                            response.forEach(el => {
+                            response[0].forEach(el => {
+                                let students_count
+                                class_count.forEach(i=>{
+                                    if (i.class_id == el.class_id ){
+                                        students_count = i.student_num
+                                        
+                                    }
+
+                                })
                                 $('#prev_Tbody').append(
                                     `
-                                    <tr id_session="`+ el.id_session + `">
-                                        <td>`+ el.nom_session + `</td>
-                                        <td>`+ el.class_name + `</td>
-                                        <td>`+ el.date_start + `</td>
-                                        <td>`+ el.date_end + `</td>
-                                        <td>`+ el.present + `</td>
+                                    <tr style="cursor:pointer;" onclick ="redirect_sess(this)" id_session="`+ el.id_session + `">
+                                    <td>`+ el.nom_session + `</td>
+                                    <td>`+ el.class_name + `</td>
+                                    <td>`+ el.date_start + `</td>
+                                    <td>`+ el.date_end + `</td>
+                                    <td>`+ Math.round(el.present/students_count*100)+'%' + `</td>
+                                    
                                     </tr>
                                     `
-                                );
-                            });
-
-                            createLineChart(response);
+                                )
+                            })
                         }
-                    },
-                    error: function (err) {
-                        console.log(err);
-                        $('#prev_Tbody').html(
-                            `<tr><td colspan="5">Failed to load sessions</td></tr>`
-                        );
-                    },
-                    complete: function () {
-                        $('.loader').hide();
-                    }
-                });
-            }
 
-            getAllSessions();
-        });
+                    }, error: function (err) {
+                        console.log(err)
+                        $('#prev_Tbody').html(
+                                `<tr><td colspan="5"> failed to load sessions</td></tr>`
+                            )
+                    }, complete: function () {
+                        $('.loader').hide()
+                    }
+                })
+            }
+            getAllSessions()
+        })
     </script>
     <script>
         // Get today's date in the format "YYYY-MM-DD"
@@ -319,6 +327,12 @@
         function setMaxDate() {
             var todayDate = getTodayDate();
             document.getElementById('date').setAttribute('max', todayDate);
+        }
+    </script>
+    <script>
+        function redirect_sess(row){
+            let id = $(row).attr("id_session")
+            location.assign("session.php?session_id="+id)
         }
     </script>
     <?php require('footer.php') ?>

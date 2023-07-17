@@ -101,17 +101,13 @@ if (isset($_GET['session_id'])) {
         <!-- top main title + statics cards  -->
         <main>
             <div id="black_layer" style="right:-100vw;"></div>
-            <div class="top-main">
-                <div class="title">
-                    <h2 class="text-capitalize">
+            <h2 class="text-uppercase py-4">
                         <?= $nom_session ?>
                     </h2>
-                </div>
-            </div>
             <div class="information">
                 <div class="row">
                     <div class="col">
-                        <h4>class room :</h4>
+                        <h4 class="text-uppercase">class room :</h4>
                         <h6>
                         <?= $class_name ?>
                         </h6>
@@ -119,13 +115,13 @@ if (isset($_GET['session_id'])) {
                 </div>
                 <div class="row gap-3">
                     <div class="col">
-                        <h4>date started :</h4>
+                        <h4 class="text-uppercase">date started :</h4>
                         <h6>
                         <?= $date_s ?>
                         </h6>
                     </div>
                     <div class="col">
-                        <h4>date ended :</h4>
+                        <h4 class="text-uppercase">date ended :</h4>
                         <h6>
                         <?= $date_e ?>
                         </h6>
@@ -139,14 +135,20 @@ if (isset($_GET['session_id'])) {
                 $sql = "SELECT * FROM student WHERE class_id ='$class_id'";
                 $result = $conn->query($sql);
                 while($row = $result->fetch_assoc()){
-
-                
+                    $student_id = $row['student_id'];
+                    $sql = "SELECT log_history.card_id FROM log_history JOIN cards ON log_history.card_id = cards.card_id JOIN student ON student.student_id = cards.student_id WHERE student.student_id = '$student_id' AND session_id = '$session_id'";
+                    $res = $conn->query($sql);
+                    if ($res->num_rows>0){
+                        $stat = '<span class="badge text-bg-success">Present</span>';
+                    }else{
+                        $stat = '<span class="badge text-bg-danger">Absent</span>';
+                    }
                 ?>
-                    <div class="rounded shadow col-12 bg-light student_card p-4">
-                        <div class="d-flex fle-row justify-content-around">
-                            <p><?= $row['student_id'] ?></p>
-                            <p><?= $row['first_name'].' '.$row['last_name']  ?></p>
-                            <p>present</p>
+                    <div style="cursor:pointer;" onclick="redirect_sess(this)" id_student="<?= $student_id ?>" class="rounded shadow col-12 bg-light student_card p-4">
+                        <div class="d-flex flex-row justify-content-evenly">
+                            <p><?= $student_id ?></p>
+                            <p style="width:40%;" class="text-center"><?= $row['first_name'].' '.$row['last_name']  ?></p>
+                            <?= $stat?>
                         </div>
                     </div>
 
@@ -173,8 +175,15 @@ if (isset($_GET['session_id'])) {
             </div> -->
 
         </main>
+        <script>
+        function redirect_sess(card){
+            let id = $(card).attr("id_student")
+            
+            location.assign("student_info.php?student_id="+id)
+        }
+        </script>
         <?php require('footer.php'); ?>
-
+                
 
     </body>
 
