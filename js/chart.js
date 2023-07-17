@@ -20,7 +20,7 @@ function ChartColors() {
     data: {
       labels: ['active', 'inactive'],
       datasets: [{
-        label: 'Entries',
+        label: 'cards',
         data: cardStat,
         backgroundColor: [
           '#1a7020', //#354EA1
