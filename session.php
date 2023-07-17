@@ -35,7 +35,7 @@ if (isset($_GET['session_id'])) {
 
     <head>
         <?php require('head.php'); ?>
-        <title>main</title>
+        <title><?= $nom_session?></title>
         <link rel="stylesheet" href="css/student.css">
         <style>
             /* student edit */
@@ -139,9 +139,9 @@ if (isset($_GET['session_id'])) {
                     $sql = "SELECT log_history.card_id FROM log_history JOIN cards ON log_history.card_id = cards.card_id JOIN student ON student.student_id = cards.student_id WHERE student.student_id = '$student_id' AND session_id = '$session_id'";
                     $res = $conn->query($sql);
                     if ($res->num_rows>0){
-                        $stat = '<span class="badge text-bg-success">Present</span>';
+                        $stat = '<span style="width:8%;" class="badge text-bg-success">Present</span>';
                     }else{
-                        $stat = '<span class="badge text-bg-danger">Absent</span>';
+                        $stat = '<span style="width:8%;" class="badge text-bg-danger">Absent</span>';
                     }
                 ?>
                     <div style="cursor:pointer;" onclick="redirect_sess(this)" id_student="<?= $student_id ?>" class="rounded shadow col-12 bg-light student_card p-4">
