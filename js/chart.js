@@ -1,5 +1,5 @@
 var ctx1 = document.getElementById('Chart1').getContext('2d');
-let cardStat = [];
+var cardStat = [];
 $.ajax({
   url: 'php/getCardsState.php',
   type: 'GET',
@@ -36,8 +36,44 @@ function ChartColors() {
   });
 }
 
+var ctx2 = document.getElementById('Chart2').getContext('2d');
+$.ajax({
+  url: 'php/stats_api.php',
+  type: 'GET',
+  dataType: 'json',
+  success: function(data) {
+    var classnames = []
+    var rates = []
+    data.forEach(element => {
+      classnames.push(element.class)
+      rates.push(element.presence_rate)
+    });
+    var myChart2 = new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: classnames,
+        datasets: [{
+          label: 'presence rate',
+          data: rates,
+          
+          borderWidth: 1
+        }]
+      },options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                max:100,
+            }
+        }
+    }
+    });
+  },
+  error: function(jqXHR, textStatus, errorThrown) {
+    console.log('Error: ' + textStatus);
+  }
+});
 // presence rate chart //
-
+/* 
 function createLineChart(response) {
   var labels = [];
   var presentData = [];
@@ -83,9 +119,9 @@ function createLineChart(response) {
       }
   });
 }
+ */
 
-
-var ctx3 = document.getElementById('Chart3').getContext('2d');
+/* var ctx3 = document.getElementById('Chart3').getContext('2d');
 var myChart3 = new Chart(ctx3, {
   type: 'doughnut',
   data: {
@@ -113,3 +149,4 @@ var myChart3 = new Chart(ctx3, {
     }
   }
 });
+ */

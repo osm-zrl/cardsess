@@ -40,7 +40,7 @@ $total_cards = $count_row['total_cards'];
     <main>
         <div class="top-main">
             <div class="title">
-                <h2>Dashboard</h2>
+                <h2 class="text-uppercase">Dashboard</h2>
 
             </div>
             <div class="cards">
@@ -81,11 +81,11 @@ $total_cards = $count_row['total_cards'];
             </div>
 
             <div class="block" id="chart2">
-                <h4>Students Statistics</h4>
+                <h4>Presence Rate</h4>
                 <canvas id="Chart2"></canvas>
             </div>
         </div>
-        <div class="statistics_2">
+        <!-- <div class="statistics_2">
             <div class="block">
                 <h4>General Statistics</h4>
                 <div class="center">
@@ -121,7 +121,7 @@ $total_cards = $count_row['total_cards'];
 
                     </table>
                 </div>
-            </div>
+            </div> -->
         </div>
     </main>
 
