@@ -96,13 +96,21 @@ $total_students = $count_row['total_students'];
                 <option value="female">Female</option>
             </select>
             <select name="classe" id="classe">
-                <option value="">Select Student Group</option>
-                <option value="1">Développement digital 101</option>
-                <option value="2">Développement digital 102</option>
-                <option value="3">gestion entreprise 101</option>
-                <option value="4">gestion entreprise 102</option>
-                <option value="5">infographie</option>
+                <option selected value="">Select Class</option>
+
+                <?php
+                $sql = "SELECT * FROM classe";
+                $res = $conn->query($sql);
+                while ($row = $res->fetch_assoc()) {
+
+                    ?>
+                    <option value="<?php echo $row['class_id'] ?>"><?php echo $row['name'] . ' ' . $row['level'] ?></option>
+
+
+                    <?php
+                } ?>
             </select>
+            
         </div>
         <!-- table -->
         <table class="table table-striped">
