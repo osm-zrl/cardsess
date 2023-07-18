@@ -25,9 +25,23 @@ if (isset($_GET['student_id'])) {
     $gender = $row['gender'];
     $class_id = $row['class_name'];
 
+    $sql = "SELECT sessions.id_session from sessions JOIN classe ON sessions.class_id = classe.class_id JOIN student ON student.class_id = classe.class_id WHERE student.student_id = '$student_id'";
+    $ros = $conn->query($sql);
+    $all_sessions = [];
+    while($r = $ros->fetch_column()){
+        $all_sessions[]=$r;
+    }
+    
+    $sql = "SELECT log_history.session_id FROM log_history JOIN cards ON log_history.card_id = cards.card_id WHERE cards.student_id = '$student_id'";
+    $ros = $conn->query($sql);
+    $attended_sessions = [];
+    while($r = $ros->fetch_column()){
+        $attended_sessions[]=$r;
+    }
+    $unattended = array_diff($all_sessions,$attended_sessions);
+    unset($all_sessions,$attended_sessions);
 
-
-    $conn->close();
+    
 
     ?>
     <!DOCTYPE html>
@@ -35,7 +49,7 @@ if (isset($_GET['student_id'])) {
 
     <head>
         <?php require('head.php'); ?>
-        <title>main</title>
+        <title><?= $last_name . " ".$first_name?></title>
         <link rel="stylesheet" href="css/student.css">
     </head>
 
@@ -55,7 +69,7 @@ if (isset($_GET['student_id'])) {
             <div class="information">
                 <div class="row">
                     <div class="col">
-                        <h4>Student CEF :</h4>
+                        <h4>CEF :</h4>
                         <h6>
                             <?php echo $student_id; ?>
                         </h6>
@@ -63,13 +77,13 @@ if (isset($_GET['student_id'])) {
                 </div>
                 <div class="row gap-3">
                     <div class="col">
-                        <h4>Student First Name :</h4>
+                        <h4>First Name :</h4>
                         <h6>
                             <?php echo $first_name; ?>
                         </h6>
                     </div>
                     <div class="col">
-                        <h4>Student Last Name :</h4>
+                        <h4>Last Name :</h4>
                         <h6>
                             <?php echo $last_name; ?>
                         </h6>
@@ -77,13 +91,13 @@ if (isset($_GET['student_id'])) {
                 </div>
                 <div class="row gap-3">
                     <div class="col">
-                        <h4>Student Birthday :</h4>
+                        <h4>Birthday :</h4>
                         <h6>
                             <?php echo $birthday; ?>
                         </h6>
                     </div>
                     <div class="col">
-                        <h4>Student Gender :</h4>
+                        <h4>Gender :</h4>
                         <h6>
                             <?php echo $gender; ?>
                         </h6>
@@ -91,7 +105,7 @@ if (isset($_GET['student_id'])) {
                 </div>
                 <div class="row">
                     <div class="col">
-                        <h4>Student Class :</h4>
+                        <h4>Classroom :</h4>
                         <h6>
                             <?php echo $class_id; ?>
                         </h6>
@@ -99,7 +113,7 @@ if (isset($_GET['student_id'])) {
                 </div>
                 <div class="row table-responsive">
                     <h4>Associated Cards :</h4>
-                    <table class="table table-striped">
+                    <table class="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">CARD ID</th>
@@ -107,6 +121,38 @@ if (isset($_GET['student_id'])) {
                             </tr>
                         </thead>
                         <tbody id="cardsTableB">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row table-responsive">
+                    <h4>Missed Sessions (<?= count($unattended)?>) :</h4>
+                    <table class="table table-bordered table-hover">
+                        <tbody id="cardsTable">
+                            <?php 
+                            
+                            if (count($unattended)!=0){
+
+                            
+                                foreach($unattended as $s){
+                                    $sql = "SELECT id_session,nom_session,DATE(date_start) as d FROM sessions WHERE id_session = '$s'";
+                                    $ros = $conn->query($sql);
+                                    while($r = $ros->fetch_assoc()){
+                                ?>
+                                    <tr id_session ="<?= $r['id_session'] ?>"  onclick="redirect_session(this)" style="cursor:pointer;">
+                                        <td class="text-capitalize"><?= $r["nom_session"];?></td>
+                                        <td><?= $r["d"];?></td> 
+                                    </tr>
+                                <?php
+                                }
+                                }
+                            }else{
+                            ?>
+                            <tr>
+                                <td colspan = '2' class="text-capitalize">No missed sessions</td>
+                            </tr>
+                            <?php
+                            }?>
 
                         </tbody>
                     </table>
@@ -208,6 +254,12 @@ if (isset($_GET['student_id'])) {
                 });
             }
         </script>
+        <script>
+            function redirect_session(row){
+                let id = $(row).attr("id_session")
+                location.assign("session.php?session_id="+id)
+            }
+        </script>
     </body>
 
     </html>
@@ -264,6 +316,7 @@ if (isset($_GET['student_id'])) {
         }
     </style>
     <?php
+    $conn->close();
 } else {
     header('location:students.php');
 } ?>
