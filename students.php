@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // prepare the SQL statement to retrieve all students from the table
 $sql = "SELECT s.student_id, s.first_name, s.last_name, s.birthday, s.gender, c.name AS class_name, c.level
         FROM student s
-        JOIN classe c ON s.class_id = c.class_id";
+        JOIN classe c ON s.class_id = c.class_id order by s.last_name";
 
 // execute the SQL statement and store the result
 $result = $conn->query($sql);
@@ -68,17 +68,11 @@ $total_students = $count_row['total_students'];
                         <p>Students</p>
                     </div>
                 </div>
-                <div class="card">
-                    <i class="fa-solid fa-address-book"></i>
-                    <div class="card-text">
-                        <span>--</span>
-                        <p>absent</p>
-                    </div>
-                </div>
+                
                 <div class="card">
                     <i class="fa-solid fa-chalkboard-user"></i>
                     <div class="card-text">
-                        <span>--%</span>
+                        <span id="presence_rate_card">--%</span>
                         <p>attendance</p>
                     </div>
                 </div>
@@ -129,7 +123,7 @@ $total_students = $count_row['total_students'];
                         while ($row = $result->fetch_assoc()) {
                             echo "<tr>";
                             echo "<td>" . $row["student_id"] . "</td>";
-                            echo "<td>" . $row["first_name"] . " " . $row["last_name"] . "</td>";
+                            echo "<td>" . $row["last_name"] . " " . $row["first_name"] . "</td>";
                             echo "<td>" . date_diff(date_create($row["birthday"]), date_create('today'))->y . "</td>";
                             echo "<td>" . $row["gender"] . "</td>";
                             echo "<td>" . $row["class_name"] . " " . $row["level"] . "</td>";
@@ -234,6 +228,24 @@ $(document).ready(function() {
   $('#gender, #classe').on('change', function() {
     $('.search-input').trigger('input');
   });
+  $.ajax({
+  url: 'php/stats_api.php',
+  type: 'GET',
+  dataType: 'json',
+  success: function(data) {
+    var rates = 0
+    data.forEach(element => {
+      rates += element.presence_rate
+    });
+    rates /= data.length
+    
+    $("#presence_rate_card").text(Math.round(rates,2)+"%")
+    
+  },
+  error: function(jqXHR, textStatus, errorThrown) {
+    console.log('Error: ' + textStatus);
+  }
+});
 });
 </script>
 
